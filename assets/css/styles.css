@@ -1,0 +1,511 @@
+/* Reset básico y variables */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #F5EFE3;
+    color: #3A2E22; /* Se cambió esta parte */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header y Navegación */
+.main-header {
+    background-color: #4A2F23; /* Se cambió esta parte */
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    color: #C97B3D; /* Se cambió esta parte */
+}
+
+/* Formulario */
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Se agregó */
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem; /* Se agregó */
+}
+
+.form-section {
+    background: #FFFDF8; /* Se cambió esta parte */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* se añadió */
+.form-section.wide {
+    max-width: 600px; 
+}
+
+/* Se añadió */
+.form-section .btn-primary,
+.custom-form .btn-primary {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    border-color: #6B4226; /* Se cambió esta parte */
+    outline: none;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    min-height: 1.2em;
+}
+
+.btn-primary {
+    display: inline-block; /* Se añadió */
+    padding: 0.75rem 1.5rem; /* Se añadió */ 
+    background-color: #6B4226; /* Se cambió esta parte */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; /* Se añadió */ 
+    text-align: center; /* Se añadió */ 
+    transition: background-color 0.2s ease; /* Se añadió */ 
+}
+
+.btn-primary:hover {
+    background-color: #4E2F1C;
+}
+
+/* De aquí hacia el otro comentario
+(el que diga "hasta aquí") es todo lo nuevo añadido al codigo */
+/* ==========================================
+   Página de Inicio (Hero + Categorías)
+   ========================================== */
+.hero-banner {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(#6B4226, #4E2F1C);
+    color: #fff;
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.hero-banner h2 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+}
+
+.hero-banner p {
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.hero-banner .btn-primary {
+    background-color: #fff;
+    color: #4E2F1C;
+    margin-top: 0.5rem;
+}
+
+.hero-banner .btn-primary:hover {
+    background-color: #F5F5F5;
+}
+
+.categories-preview {
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
+}
+
+.categories-preview h2 {
+    margin-bottom: 1.5rem;
+    color: #3A2E22;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card {
+    background: #FFFDF8;
+    border: 1px solid #D1C9B9;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.08);
+}
+
+.category-card h3 {
+    color: #6B4226;
+    margin-bottom: 0.5rem;
+}
+
+/* ==========================================
+   Página de Catálogo de Productos
+   ========================================== */
+.container-catalog {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.container-catalog h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #3A2E22;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    background: #FFFDF8;
+    border: 1px solid #D1C9B9;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #F5F5F5;
+    margin-bottom: 0.75rem;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    min-height: 2.6em;
+    margin-bottom: 0.5rem;
+    color: #3A2E22;
+}
+
+.product-card .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #6B4226;
+    margin-bottom: 0.25rem;
+}
+
+.product-card .stock {
+    font-size: 0.85rem;
+    color: #6b6155;
+    margin-bottom: 1rem;
+}
+
+.product-card .btn-primary {
+    width: 100%;
+    margin-top: auto;
+}
+/* Hasta aquí */
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Se añadió */
+    .hero-banner {
+        padding: 2rem 1.25rem; 
+    }
+}
+/* Estilos adicionales para Carrito y Tablas */
+.cart-section {
+    width: 100%;
+    max-width: 900px;
+    background: #FFFDF8; /* Se cambió esta parte */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+
+.cart-table th, .cart-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.cart-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cart-item-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-controls button {
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+}
+
+.cart-summary {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #e2e8f0;
+    padding-top: 1rem;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-secondary {
+    background-color: #64748b;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.empty-cart-msg {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+/* Estilos para el Panel de Administración */
+.admin-section {
+    width: 100%;
+    max-width: 1100px;
+    background: #FFFDF8; /* Se cambió esta parte */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.dashboard-cards {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.card-stat {
+    flex: 1;
+    background-color: #F5EFE3;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.card-stat h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #64748b;
+}
+
+.card-stat p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #3A2E22; /* Se cambió esta parte */
+}
+
+.warning-text {
+    color: #dc2626 !important;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.quick-actions {
+    margin-top: 2rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* ==========================================
+    Página de Historia (nosotros.html)
+   ========================================== */
+.historia-section p {
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+}
+
+.historia-section h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.historia-section h2:first-child {
+    margin-top: 0;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--color-border, #e2e8f0);
+    margin: 2rem 0;
+}
+
+/* ==========================================
+    Página de Blog (blogs.html)
+   ========================================== */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.blog-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.blog-card-body {
+    padding: 1.25rem;
+}
+
+.blog-card-body h3 {
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
+    line-height: 1.3;
+}
+
+.blog-card-body p {
+    line-height: 1.6;
+    color: #6b6155;
+    font-size: 0.95rem;
+}
