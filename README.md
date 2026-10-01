@@ -52,6 +52,7 @@ https://docs.google.com/document/d/1gn2ftEl9BwI0thx5feYQeSx5lzhmrtxi4Wu2zjdwkgE/
 Ejecuta en tu terminal de Ubuntu:
 
 ```bash
+git clone <link_del_repositorio>
 git add README.md
 git commit -m "fix: corregir formato de bloque de codigo en arbol de carpetas del README"
 git push
