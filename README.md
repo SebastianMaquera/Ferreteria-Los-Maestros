@@ -1,7 +1,7 @@
 # Grupo 2 - Ferretería Los Maestros
 
 ## Integrantes
-- Camilo Alarcón (Keightbeak25) (ca.alarconv@duocuc.cl)
+- Camilo Alarcón (CamiloAlarcon23) (ca.alarconv@duocuc.cl)
 - Sebastián Maquera (se.maquera@duocuc.cl)
 - Jonathan Ulloa (ulloanjo2025) (jo.ulloan@duocuc.cl)
 
