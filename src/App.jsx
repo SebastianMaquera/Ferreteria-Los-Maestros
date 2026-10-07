@@ -27,7 +27,6 @@ function App() {
       <div className="row">
         {productos && productos.length > 0 ? (
           productos.map((prod, index) => {
-            // Captura de propiedades flexibilizada por si variaron los nombres en el JS
             const nombre = prod.nombre || prod.title || 'Producto';
             const precio = prod.precio || prod.price || prod.costo || 0;
             const descripcion = prod.descripcion || prod.detalles || prod.description || 'Sin descripción disponible';
