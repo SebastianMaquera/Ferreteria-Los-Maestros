@@ -1,3 +1,5 @@
-export default function EtiquetaCategoria({ categoria }) {
-  return <span className="etiqueta-categoria">{categoria}</span>;
+import { Badge } from 'react-bootstrap';
+
+export function EtiquetaCategoria({ texto, bg = 'secondary' }) {
+  return <Badge bg={bg}>{texto}</Badge>;
 }
