@@ -1,22 +1,21 @@
-import { Card, Button } from 'react-bootstrap';
-import { EtiquetaCategoria } from '../atoms/EtiquetaCategoria';
+import React from 'react';
+import EtiquetaCategoria from '../atoms/EtiquetaCategoria';
 
-export function TarjetaProducto({ producto }) {
+const TarjetaProducto = ({ producto }) => {
+  if (!producto) return null;
+
   return (
-    <Card className="h-100 shadow-sm border-0">
-      <Card.Body className="d-flex flex-column justify-content-between">
-        <div>
-          <EtiquetaCategoria texto={producto.categoria} />
-          <Card.Title className="h6 mt-2">{producto.nombre}</Card.Title>
-          <Card.Text className="fw-bold text-primary fs-5 mb-1">
-            ${producto.precio.toLocaleString('es-CL')}
-          </Card.Text>
-          <small className="text-muted d-block mb-3">Stock disponible: {producto.stock} un.</small>
-        </div>
-        <Button variant="primary" className="w-100">
-          Agregar al Carrito
-        </Button>
-      </Card.Body>
-    </Card>
+    <div className="card h-100 shadow-sm">
+      <div className="card-body">
+        <span className="badge bg-primary mb-2">
+          {producto.categoria || 'General'}
+        </span>
+        <h5 className="card-title">{producto.nombre}</h5>
+        <p className="card-text text-muted">{producto.descripcion}</p>
+        <p className="fw-bold text-success">${producto.precio}</p>
+      </div>
+    </div>
   );
-}
+};
+
+export default TarjetaProducto;
