@@ -2,29 +2,25 @@ import { useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { FormFieldGroup } from '../molecules/FormFieldGroup';
 import { ButtonSubmit } from '../atoms/ButtonSubmit';
+import { validarCorreo, validarClave } from '../../utils/validaciones';
 
 export function LoginForm({ onLogin }) {
   const [correo, setCorreo] = useState('');
   const [clave, setClave] = useState('');
-  const [error, setError] = useState('');
+  const [errores, setErrores] = useState({ correo: '', clave: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validar correo según restricciones del caso
-    const dominiosPermitidos = ['@duoc.cl', '@profesor.duoc.cl', '@gmail.com'];
-    const correoValido = dominiosPermitidos.some(d => correo.toLowerCase().endsWith(d));
 
-    if (!correoValido) {
-      setError('Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com');
+    const errCorreo = validarCorreo(correo);
+    const errClave = validarClave(clave);
+
+    if (errCorreo || errClave) {
+      setErrores({ correo: errCorreo, clave: errClave });
       return;
     }
 
-    if (clave.length < 4 || clave.length > 10) {
-      setError('La contraseña debe tener entre 4 y 10 caracteres.');
-      return;
-    }
-
-    setError('');
+    setErrores({ correo: '', clave: '' });
     onLogin({ correo, clave });
   };
 
@@ -36,13 +32,14 @@ export function LoginForm({ onLogin }) {
           <p className="text-muted">Inicio de Sesión - Sistema de Gestión</p>
         </div>
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} noValidate>
           <FormFieldGroup
             label="Correo Electrónico"
             type="email"
             placeholder="ejemplo@duoc.cl"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
+            errorText={errores.correo}
           />
 
           <FormFieldGroup
@@ -51,7 +48,7 @@ export function LoginForm({ onLogin }) {
             placeholder="Ingresa tu contraseña"
             value={clave}
             onChange={(e) => setClave(e.target.value)}
-            errorText={error}
+            errorText={errores.clave}
           />
 
           <div className="mt-4">

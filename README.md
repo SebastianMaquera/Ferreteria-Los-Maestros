@@ -56,3 +56,19 @@ git clone <link_del_repositorio>
 git add README.md
 git commit -m "fix: corregir formato de bloque de codigo en arbol de carpetas del README"
 git push
+
+
+# Bitácora de Trabajo del Equipo
+
+| Fecha | Integrante | Tareas Realizadas / Aportes |
+| :--- | :--- | :--- |
+| **05/10/2026** | Jonathan Ulloa | Creación e integración de NavbarApp y CatalogoPage. |
+| **07/10/2026** | Sebastián Maquera | Configuración del repositorio y corrección de componentes. |
+| **07/10/2026** | Camilo Alarcón | Estructuración inicial de formularios y vistas en /pages. |
+| **13/10/2026** | Jonathan Ulloa | Instalación de React Router, mapa de rutas en App.jsx y vista Home. |
+| **13/10/2026** | Sebastián Maquera | Desarrollo de DetalleProductoPage con useParams. |
+| **13/10/2026** | Camilo Alarcón | Desarrollo de LoginPage con validación en React y actualización de bitácora en README. |
+
+### Registro de Contingencias
+- Integrantes del equipo: Jonathan Ulloa, Sebastián Maquera y Camilo Alarcón.
+- Conflictos de merge resueltos exitosamente en App.jsx y TarjetaProducto.jsx.

@@ -1,9 +1,12 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { LoginForm } from '../components/organisms/LoginForm';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginPage() {
+  const navigate = useNavigate();
   const handleLoginSubmit = (datos) => {
     console.log('Datos procesados:', datos);
+    navigate('/catalogo');
   };
 
   return (
