@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import CatalogoPage from './pages/CatalogoPage';
+import DetalleProductoPage from './pages/DetalleProductoPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalogo" element={<CatalogoPage />} />
+        <Route path="/producto/:id" element={<DetalleProductoPage />} />
       </Routes>
     </BrowserRouter>
   );
