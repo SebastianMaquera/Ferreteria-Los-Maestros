@@ -1,22 +1,43 @@
-import { Container, Row, Col } from 'react-bootstrap';
-import { productosIniciales } from '../data/productos';
-import { TarjetaProducto } from '../components/molecules/TarjetaProducto';
-import { NavbarApp } from '../components/organisms/NavbarApp';
+import React from 'react';
+import TarjetaProducto from '../components/molecules/TarjetaProducto';
+import { productos } from '../data/productos';
 
-export function CatalogoPage() {
+function CatalogoPage() {
   return (
-    <div className="bg-light min-vh-100">
-      <NavbarApp />
-      <Container className="py-5">
-        <h2 className="fw-bold mb-4">Catálogo de Productos</h2>
-        <Row xs={1} md={2} lg={4} className="g-4">
-          {productosIniciales.map((prod) => (
-            <Col key={prod.id}>
+    <div className="container my-4">
+      <h2 className="text-center fw-bold text-primary mb-2">Catálogo Oficial</h2>
+      <p className="text-center text-muted mb-4">Encuentra los mejores productos y herramientas</p>
+
+      {/* Buscador de Productos */}
+      <div className="row justify-content-center mb-5">
+        <div className="col-md-8">
+          <div className="input-group shadow-sm">
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              placeholder="Buscar producto por nombre o categoría..."
+            />
+            <button className="btn btn-primary px-4" type="button">
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Grilla de Productos */}
+      <div className="row">
+        {productos && productos.length > 0 ? (
+          productos.map((prod, index) => (
+            <div key={prod.id || index} className="col-12 col-md-6 col-lg-4 mb-4">
               <TarjetaProducto producto={prod} />
-            </Col>
-          ))}
-        </Row>
-      </Container>
+            </div>
+          ))
+        ) : (
+          <p className="text-center">No hay productos disponibles.</p>
+        )}
+      </div>
     </div>
   );
 }
+
+export default CatalogoPage;
