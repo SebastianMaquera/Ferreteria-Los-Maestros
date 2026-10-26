@@ -1,18 +1,22 @@
 import React from 'react';
+import { InputGroup, Form, Button } from 'react-bootstrap';
 
-const BuscadorProductos = () => {
+
+export function BuscadorProductos({ valor, onChange, onBuscar }) {
   return (
-    <div className="input-group">
-      <input
+    <InputGroup className="mb-3">
+      <Form.Control
         type="text"
-        className="form-control"
         placeholder="Buscar productos..."
+        value={valor}
+        onChange={onChange}
       />
-      <button className="btn btn-primary" type="button">
+      <Button variant="primary" onClick={onBuscar}>
         Buscar
-      </button>
-    </div>
+      </Button>
+    </InputGroup>
   );
-};
+}
+
 
 export default BuscadorProductos;
