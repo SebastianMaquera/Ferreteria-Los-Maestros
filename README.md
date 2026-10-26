@@ -45,8 +45,10 @@ Carpeta pública de Google Drive con documentos oficiales (ERS Anexo 4 y Planill
 ```
 https://docs.google.com/document/d/1gn2ftEl9BwI0thx5feYQeSx5lzhmrtxi4Wu2zjdwkgE/edit?tab=t.0
 ```
-
-
+documentos oficial ERS V.2
+```
+https://docs.google.com/document/d/1_uHm3LJRTNMUy34ofkok5mum5eHaF2T0uRNIWdz2qEw/edit?usp=sharing
+```
 ### Guarda los cambios y súbelo a GitHub:
 
 Ejecuta en tu terminal de Ubuntu:
