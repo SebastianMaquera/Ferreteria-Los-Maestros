@@ -1,43 +1,76 @@
-import React from 'react';
-import TarjetaProducto from '../components/molecules/TarjetaProducto';
-import { productos } from '../data/productos';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import { TarjetaProducto } from '../components/molecules/TarjetaProducto';
+import { BuscadorProductos } from '../components/molecules/BuscadorProductos';
+import { PRODUCTOS, CATEGORIAS } from '../data/productos';
 
-function CatalogoPage() {
+
+export function CatalogoPage() {
+  const [busqueda, setBusqueda] = useState('');
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
+
+
+  // Filtrado dinámico por término de búsqueda y categoría
+  const productosFiltrados = PRODUCTOS.filter((prod) => {
+    const coincideTexto = prod.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+      prod.categoria.toLowerCase().includes(busqueda.toLowerCase());
+    const coincideCategoria = categoriaSeleccionada === 'Todas' || prod.categoria === categoriaSeleccionada;
+
+
+    return coincideTexto && coincideCategoria;
+  });
+
+
   return (
-    <div className="container my-4">
+    <Container className="my-4">
       <h2 className="text-center fw-bold text-primary mb-2">Catálogo Oficial</h2>
       <p className="text-center text-muted mb-4">Encuentra los mejores productos y herramientas</p>
 
-      {/* Buscador de Productos */}
-      <div className="row justify-content-center mb-5">
-        <div className="col-md-8">
-          <div className="input-group shadow-sm">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Buscar producto por nombre o categoría..."
-            />
-            <button className="btn btn-primary px-4" type="button">
-              Buscar
-            </button>
-          </div>
-        </div>
-      </div>
+
+      {/* Buscador y Filtro por Categorías */}
+      <Row className="justify-content-center mb-4 g-3">
+        <Col md={7}>
+          <BuscadorProductos
+            valor={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            onBuscar={() => { }}
+          />
+        </Col>
+        <Col md={3}>
+          <Form.Select
+            value={categoriaSeleccionada}
+            onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+            aria-label="Filtrar por categoría"
+          >
+            {CATEGORIAS.map((cat, idx) => (
+              <option key={idx} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </Form.Select>
+        </Col>
+      </Row>
+
 
       {/* Grilla de Productos */}
-      <div className="row">
-        {productos && productos.length > 0 ? (
-          productos.map((prod, index) => (
-            <div key={prod.id || index} className="col-12 col-md-6 col-lg-4 mb-4">
+      <Row>
+        {productosFiltrados.length > 0 ? (
+          productosFiltrados.map((prod) => (
+            <Col key={prod.id} xs={12} md={6} lg={4} className="mb-4">
               <TarjetaProducto producto={prod} />
-            </div>
+            </Col>
           ))
         ) : (
-          <p className="text-center">No hay productos disponibles.</p>
+          <Col xs={12}>
+            <p className="text-center text-muted fs-5 my-5">
+              No se encontraron productos que coincidan con la búsqueda.
+            </p>
+          </Col>
         )}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 }
+
 
 export default CatalogoPage;
