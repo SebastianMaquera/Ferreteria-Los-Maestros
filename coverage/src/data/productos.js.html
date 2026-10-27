@@ -1,0 +1,445 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/data/productos.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/data</a> productos.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/110</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/110</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >// Desarrollado por: Sebastián Maquera (src/data/productos.js)<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export const CATEGORIAS = [</span>
+<span class="cstat-no" title="statement not covered" >  "Todas",</span>
+<span class="cstat-no" title="statement not covered" >  "Mat. Construcción",</span>
+<span class="cstat-no" title="statement not covered" >  "Pinturas",</span>
+<span class="cstat-no" title="statement not covered" >  "Herramientas",</span>
+<span class="cstat-no" title="statement not covered" >  "Gasfitería",</span>
+<span class="cstat-no" title="statement not covered" >  "Electricidad",</span>
+<span class="cstat-no" title="statement not covered" >  "Tornillería",</span>
+<span class="cstat-no" title="statement not covered" >  "Madera",</span>
+<span class="cstat-no" title="statement not covered" >  "Seguridad",</span>
+<span class="cstat-no" title="statement not covered" >  "Jardín",</span>
+<span class="cstat-no" title="statement not covered" >];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export const PRODUCTOS = [</span>
+<span class="cstat-no" title="statement not covered" >  // ==================== MAT. CONSTRUCCIÓN ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC001', nombre: 'Cemento Polpaico gris 25 kg', categoria: 'Mat. Construcción', subcategoria: 'Cementos', marca: 'Polpaico', unidad: 'Saco', precio: 5990, stock: 80, stockMinimo: 20, destacado: true, imagen: '/img/PolpaicoCemento.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC002', nombre: 'Cemento Melón blanco 25 kg', categoria: 'Mat. Construcción', subcategoria: 'Cementos', marca: 'Melón', unidad: 'Saco', precio: 7490, stock: 40, stockMinimo: 10, destacado: false, imagen: '/img/MC002.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC003', nombre: 'Mortero cola cerámica 25 kg', categoria: 'Mat. Construcción', subcategoria: 'Morteros', marca: 'Volcán', unidad: 'Saco', precio: 5200, stock: 50, stockMinimo: 15, destacado: false, imagen: '/img/MC003.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC004', nombre: 'Mortero nivelador piso 25 kg', categoria: 'Mat. Construcción', subcategoria: 'Morteros', marca: 'Weber', unidad: 'Saco', precio: 6490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/MC004.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC005', nombre: 'Arena fina construcción 25 kg', categoria: 'Mat. Construcción', subcategoria: 'Áridos', marca: 'Granel', unidad: 'Saco', precio: 1800, stock: 60, stockMinimo: 20, destacado: false, imagen: '/img/MC005.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC006', nombre: 'Ripio 25 kg', categoria: 'Mat. Construcción', subcategoria: 'Áridos', marca: 'Granel', unidad: 'Saco', precio: 1500, stock: 60, stockMinimo: 20, destacado: false, imagen: '/img/MC006.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC007', nombre: 'Ladrillo fiscal N°5', categoria: 'Mat. Construcción', subcategoria: 'Ladrillos', marca: 'Local', unidad: 'Unidad', precio: 380, stock: 500, stockMinimo: 100, destacado: false, imagen: '/img/MC007.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC008', nombre: 'Ladrillo prensado 6x14x29 cm', categoria: 'Mat. Construcción', subcategoria: 'Ladrillos', marca: 'Melón', unidad: 'Unidad', precio: 550, stock: 300, stockMinimo: 80, destacado: false, imagen: '/img/MC008.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC009', nombre: 'Bloque de hormigón 19x19x39 cm', categoria: 'Mat. Construcción', subcategoria: 'Bloques', marca: 'Volcán', unidad: 'Unidad', precio: 1200, stock: 200, stockMinimo: 50, destacado: false, imagen: '/img/MC009.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MC010', nombre: 'Bloque liviano 10x20x40 cm', categoria: 'Mat. Construcción', subcategoria: 'Bloques', marca: 'Ytong', unidad: 'Unidad', precio: 1690, stock: 100, stockMinimo: 30, destacado: false, imagen: '/img/MC010.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== PINTURAS ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT001', nombre: 'Pintura látex interior 1 galón blanco', categoria: 'Pinturas', subcategoria: 'Látex', marca: 'Sipa', unidad: 'Galón', precio: 9990, stock: 40, stockMinimo: 10, destacado: true, imagen: '/img/GS001_Ca_er_a_PVC_1_2_x_6m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT002', nombre: 'Pintura látex interior 4 litros (varios col.)', categoria: 'Pinturas', subcategoria: 'Látex', marca: 'Sipa', unidad: 'Envase 4L', precio: 12990, stock: 30, stockMinimo: 8, destacado: false, imagen: '/img/PinturaLatex.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT003', nombre: 'Pintura látex exterior 1 galón blanco', categoria: 'Pinturas', subcategoria: 'Látex', marca: 'Kömex', unidad: 'Galón', precio: 13990, stock: 25, stockMinimo: 8, destacado: false, imagen: '/img/HE006_Caladora_500W.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT004', nombre: 'Esmalte sintético 1/4 litro (varios col.)', categoria: 'Pinturas', subcategoria: 'Esmalte', marca: 'Sipa', unidad: '1/4 L', precio: 4290, stock: 50, stockMinimo: 15, destacado: false, imagen: '/img/PT004.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT005', nombre: 'Esmalte sintético 1 litro (varios col.)', categoria: 'Pinturas', subcategoria: 'Esmalte', marca: 'Sipa', unidad: '1 litro', precio: 9490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/PT005.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT006', nombre: 'Pintura antihumedad 1 galón blanco', categoria: 'Pinturas', subcategoria: 'Antihumedad', marca: 'Kömex', unidad: 'Galón', precio: 17990, stock: 15, stockMinimo: 5, destacado: false, imagen: '/img/PT006.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT007', nombre: 'Rodillo lana 23 cm con mango', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: 'Wurth', unidad: 'Unidad', precio: 3990, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/PT007.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT008', nombre: 'Brocha cerda natural 3"', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: 'Sipa', unidad: 'Unidad', precio: 1690, stock: 40, stockMinimo: 10, destacado: false, imagen: '/img/PT008.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'PT009', nombre: 'Cinta de enmascarar 24mm x 50m', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: '3M', unidad: 'Rollo', precio: 2490, stock: 60, stockMinimo: 20, destacado: false, imagen: '/img/PT009.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== HERRAMIENTAS ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM001', nombre: 'Martillo carpintero 500g', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 7990, stock: 20, stockMinimo: 5, destacado: true, imagen: '/img/MartilloCarpintero.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM002', nombre: 'Alicate universal 8"', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 7290, stock: 15, stockMinimo: 5, destacado: false, imagen: '/img/GS006_Uni_n_doble_PVC_1_2_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM003', nombre: 'Destornillador plano 6x100mm', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 1990, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/GS007_Llave_de_paso_esfera_1_2_lat_n.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM004', nombre: 'Destornillador Phillips PH2 6x100mm', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 1990, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/GS007_Llave_de_paso_esfera_1_2_lat_n.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM005', nombre: 'Llave ajustable 10"', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Bahco', unidad: 'Unidad', precio: 8490, stock: 12, stockMinimo: 4, destacado: false, imagen: '/img/HM005_Llave_ajustable_10_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM006', nombre: 'Juego llaves hexagonales métrico x9', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Set', precio: 5490, stock: 15, stockMinimo: 5, destacado: false, imagen: '/img/HM006_Juego_llaves_hexagonales_m_trico_x9.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM007', nombre: 'Serrucho 20" 7 dientes por pulgada', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 9490, stock: 10, stockMinimo: 3, destacado: false, imagen: '/img/HM007_Serrucho_20_7_dientes_por_pulgada.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM008', nombre: 'Nivel de burbuja 60 cm', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 10490, stock: 8, stockMinimo: 3, destacado: false, imagen: '/img/HM008_Nivel_de_burbuja_60_cm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM009', nombre: 'Metro de tela 5m', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 4290, stock: 25, stockMinimo: 8, destacado: false, imagen: '/img/HM009_Metro_de_tela_5m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HM010', nombre: 'Cinta métrica 8m autoblocante', categoria: 'Herramientas', subcategoria: 'Manuales', marca: 'Stanley', unidad: 'Unidad', precio: 6490, stock: 20, stockMinimo: 6, destacado: false, imagen: '/img/HM010_Cinta_m_trica_8m_autoblocante.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HE001', nombre: 'Taladro percutor 650W 13mm', categoria: 'Herramientas', subcategoria: 'Eléctricas', marca: 'Makita', unidad: 'Unidad', precio: 79990, stock: 8, stockMinimo: 2, destacado: true, imagen: '/img/MC007_Ladrillo_fiscal_N_5.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HE002', nombre: 'Atornillador inalámbrico 12V (kit)', categoria: 'Herramientas', subcategoria: 'Eléctricas', marca: 'Makita', unidad: 'Unidad', precio: 104990, stock: 5, stockMinimo: 2, destacado: false, imagen: '/img/MC008_Ladrillo_prensado_6x14x29_cm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HE003', nombre: 'Amoladora angular 4.5" 800W', categoria: 'Herramientas', subcategoria: 'Eléctricas', marca: 'Makita', unidad: 'Unidad', precio: 54990, stock: 8, stockMinimo: 2, destacado: false, imagen: '/img/MC009_Bloque_de_hormig_n_19x19x39_cm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HE004', nombre: 'Sierra circular 7-1/4" 1200W', categoria: 'Herramientas', subcategoria: 'Eléctricas', marca: 'Skil', unidad: 'Unidad', precio: 72990, stock: 4, stockMinimo: 1, destacado: false, imagen: '/img/MC010_Bloque_liviano_10x20x40_cm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HE005', nombre: 'Lijadora orbital 180W', categoria: 'Herramientas', subcategoria: 'Eléctricas', marca: 'Black+Decker', unidad: 'Unidad', precio: 34990, stock: 6, stockMinimo: 2, destacado: false, imagen: '/img/PT002_Pintura_l_tex_interior_4_litros_varios_col_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'HE006', nombre: 'Caladora 500W', categoria: 'Herramientas', subcategoria: 'Eléctricas', marca: 'Skil', unidad: 'Unidad', precio: 42990, stock: 4, stockMinimo: 1, destacado: false, imagen: '/img/PT006_Pintura_antihumedad_1_gal_n_blanco.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== GASFITERÍA ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS001', nombre: 'Cañería PVC 1/2" x 6m', categoria: 'Gasfitería', subcategoria: 'Tuberías', marca: 'Tigre', unidad: 'Unidad', precio: 5490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/PT004_Esmalte_sint_tico_1_4_litro_varios_col_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS002', nombre: 'Cañería PVC 3/4" x 6m', categoria: 'Gasfitería', subcategoria: 'Tuberías', marca: 'Tigre', unidad: 'Unidad', precio: 7490, stock: 25, stockMinimo: 8, destacado: false, imagen: '/img/PT004_Esmalte_sint_tico_1_4_litro_varios_col_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS003', nombre: 'Cañería cobre 1/2" x 5m', categoria: 'Gasfitería', subcategoria: 'Tuberías', marca: 'Codelco', unidad: 'Unidad', precio: 17990, stock: 15, stockMinimo: 5, destacado: false, imagen: '/img/PT008_Brocha_cerda_natural_3_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS004', nombre: 'Codo PVC 1/2" 90°', categoria: 'Gasfitería', subcategoria: 'Uniones', marca: 'Tigre', unidad: 'Unidad', precio: 390, stock: 100, stockMinimo: 30, destacado: false, imagen: '/img/PT009_Cinta_de_enmascarar_24mm_x_50m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS005', nombre: 'Te PVC 1/2"', categoria: 'Gasfitería', subcategoria: 'Uniones', marca: 'Tigre', unidad: 'Unidad', precio: 450, stock: 80, stockMinimo: 25, destacado: false, imagen: '/img/HM001_Martillo_carpintero_500g.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS006', nombre: 'Unión doble PVC 1/2"', categoria: 'Gasfitería', subcategoria: 'Uniones', marca: 'Tigre', unidad: 'Unidad', precio: 320, stock: 80, stockMinimo: 25, destacado: false, imagen: '/img/HM002_Alicate_universal_8_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS007', nombre: 'Llave de paso esfera 1/2" latón', categoria: 'Gasfitería', subcategoria: 'Llaves', marca: 'Emmeti', unidad: 'Unidad', precio: 3490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/HM004_Destornillador_Phillips_PH2_6x100mm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS008', nombre: 'Llave de paso esfera 3/4" latón', categoria: 'Gasfitería', subcategoria: 'Llaves', marca: 'Emmeti', unidad: 'Unidad', precio: 4990, stock: 20, stockMinimo: 8, destacado: false, imagen: '/img/HM003_Destornillador_plano_6x100mm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS009', nombre: 'Grifería lavamanos monocomando cromo', categoria: 'Gasfitería', subcategoria: 'Grifería', marca: 'Corona', unidad: 'Unidad', precio: 22990, stock: 10, stockMinimo: 3, destacado: true, imagen: '/img/Griferia.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS010', nombre: 'Grifería cocina monocomando cuello alto', categoria: 'Gasfitería', subcategoria: 'Grifería', marca: 'Corona', unidad: 'Unidad', precio: 28990, stock: 8, stockMinimo: 2, destacado: false, imagen: '/img/GS010.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS011', nombre: 'Teflón 3/4" x 12m', categoria: 'Gasfitería', subcategoria: 'Sellos', marca: '3M', unidad: 'Rollo', precio: 790, stock: 80, stockMinimo: 25, destacado: false, imagen: '/img/GS011.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'GS012', nombre: 'Silicona transparente 280ml', categoria: 'Gasfitería', subcategoria: 'Sellos', marca: 'Wacker', unidad: 'Cartucho', precio: 5490, stock: 25, stockMinimo: 8, destacado: false, imagen: '/img/GS012.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== ELECTRICIDAD ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL001', nombre: 'Cable unipolar 1.5mm² (por metro)', categoria: 'Electricidad', subcategoria: 'Conductores', marca: 'Condulac', unidad: 'Metro', precio: 590, stock: 100, stockMinimo: 30, destacado: false, imagen: '/img/EL001_Cable_unipolar_1_5mm_por_metro_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL002', nombre: 'Cable unipolar 2.5mm² (por metro)', categoria: 'Electricidad', subcategoria: 'Conductores', marca: 'Condulac', unidad: 'Metro', precio: 790, stock: 100, stockMinimo: 30, destacado: false, imagen: '/img/EL002_Cable_unipolar_2_5mm_por_metro_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL003', nombre: 'Cable dúplex paralelo 2x1.5mm² (por metro)', categoria: 'Electricidad', subcategoria: 'Conductores', marca: 'Condulac', unidad: 'Metro', precio: 990, stock: 80, stockMinimo: 25, destacado: false, imagen: '/img/EL003_Cable_d_plex_paralelo_2x1_5mm_por_metro_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL004', nombre: 'Enchufe empotrar 16A c/tierra (schuko)', categoria: 'Electricidad', subcategoria: 'Enchufes', marca: 'Bticino', unidad: 'Unidad', precio: 3690, stock: 50, stockMinimo: 15, destacado: false, imagen: '/img/EL004_Enchufe_empotrar_16A_c_tierra_schuko_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL005', nombre: 'Enchufe doble empotrar 16A c/tierra', categoria: 'Electricidad', subcategoria: 'Enchufes', marca: 'Bticino', unidad: 'Unidad', precio: 5490, stock: 40, stockMinimo: 12, destacado: false, imagen: '/img/EL005_Enchufe_doble_empotrar_16A_c_tierra.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL006', nombre: 'Interruptor simple empotrar', categoria: 'Electricidad', subcategoria: 'Interruptores', marca: 'Bticino', unidad: 'Unidad', precio: 3190, stock: 50, stockMinimo: 15, destacado: false, imagen: '/img/EL006_Interruptor_simple_empotrar.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL007', nombre: 'Interruptor doble empotrar', categoria: 'Electricidad', subcategoria: 'Interruptores', marca: 'Bticino', unidad: 'Unidad', precio: 4290, stock: 35, stockMinimo: 10, destacado: false, imagen: '/img/EL007_Interruptor_doble_empotrar.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL008', nombre: 'Tablero eléctrico 4 espacios DIN', categoria: 'Electricidad', subcategoria: 'Tableros', marca: 'Legrand', unidad: 'Unidad', precio: 22990, stock: 8, stockMinimo: 2, destacado: false, imagen: '/img/EL008_Tablero_el_ctrico_4_espacios_DIN.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL009', nombre: 'Disyuntor termomagnético 16A unipolar', categoria: 'Electricidad', subcategoria: 'Tableros', marca: 'Schneider', unidad: 'Unidad', precio: 6490, stock: 20, stockMinimo: 5, destacado: false, imagen: '/img/EL009_Disyuntor_termomagn_tico_16A_unipolar.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL010', nombre: 'Disyuntor termomagnético 25A unipolar', categoria: 'Electricidad', subcategoria: 'Tableros', marca: 'Schneider', unidad: 'Unidad', precio: 6990, stock: 20, stockMinimo: 5, destacado: false, imagen: '/img/EL010_Disyuntor_termomagn_tico_25A_unipolar.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL011', nombre: 'Ampolleta LED 9W E27 luz fría', categoria: 'Electricidad', subcategoria: 'Iluminación', marca: 'Philips', unidad: 'Unidad', precio: 3990, stock: 60, stockMinimo: 20, destacado: false, imagen: '/img/EL011_Ampolleta_LED_9W_E27_luz_fr_a.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL012', nombre: 'Ampolleta LED 12W E27 luz cálida', categoria: 'Electricidad', subcategoria: 'Iluminación', marca: 'Philips', unidad: 'Unidad', precio: 4490, stock: 50, stockMinimo: 15, destacado: false, imagen: '/img/EL012_Ampolleta_LED_12W_E27_luz_c_lida.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'EL013', nombre: 'Panel LED empotrar 18W 22cm', categoria: 'Electricidad', subcategoria: 'Iluminación', marca: 'Ledvance', unidad: 'Unidad', precio: 11490, stock: 20, stockMinimo: 6, destacado: false, imagen: '/img/EL013_Panel_LED_empotrar_18W_22cm.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== TORNILLERÍA ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR001', nombre: 'Tornillo autoperf. 8x1" caja 100 unid.', categoria: 'Tornillería', subcategoria: 'Tornillos', marca: 'Hilti', unidad: 'Caja', precio: 2990, stock: 40, stockMinimo: 12, destacado: false, imagen: '/img/TR001_Tornillo_autoperf_8x1_caja_100_unid_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR002', nombre: 'Tornillo madera 4x40mm caja 100 unid.', categoria: 'Tornillería', subcategoria: 'Tornillos', marca: 'Hilti', unidad: 'Caja', precio: 2490, stock: 40, stockMinimo: 12, destacado: false, imagen: '/img/TR002_Tornillo_madera_4x40mm_caja_100_unid_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR003', nombre: 'Tornillo volcanita 3.5x25mm caja 200 unid.', categoria: 'Tornillería', subcategoria: 'Tornillos', marca: 'Hilti', unidad: 'Caja', precio: 3490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/TR003_Tornillo_volcanita_3_5x25mm_caja_200_unid_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR004', nombre: 'Taco fisher S6 bolsa 100 unid.', categoria: 'Tornillería', subcategoria: 'Tacos', marca: 'Fischer', unidad: 'Bolsa', precio: 3190, stock: 35, stockMinimo: 10, destacado: false, imagen: '/img/TR004_Taco_fisher_S6_bolsa_100_unid_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR005', nombre: 'Taco fisher S8 bolsa 50 unid.', categoria: 'Tornillería', subcategoria: 'Tacos', marca: 'Fischer', unidad: 'Bolsa', precio: 2890, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/TR005_Taco_fisher_S8_bolsa_50_unid_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR006', nombre: 'Perno hex. 3/8" x 2" c/tuerca y golilla', categoria: 'Tornillería', subcategoria: 'Pernos', marca: 'Granel', unidad: 'Unidad', precio: 290, stock: 200, stockMinimo: 50, destacado: false, imagen: '/img/TR006_Perno_hex_3_8_x_2_c_tuerca_y_golilla.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR007', nombre: 'Perno de anclaje 10x100mm', categoria: 'Tornillería', subcategoria: 'Anclajes', marca: 'Hilti', unidad: 'Unidad', precio: 990, stock: 60, stockMinimo: 15, destacado: false, imagen: '/img/TR007_Perno_de_anclaje_10x100mm.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'TR008', nombre: 'Anclaje químico epoxi 300ml', categoria: 'Tornillería', subcategoria: 'Anclajes', marca: 'Fischer', unidad: 'Cartucho', precio: 15990, stock: 8, stockMinimo: 2, destacado: false, imagen: '/img/TR008_Anclaje_qu_mico_epoxi_300ml.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== MADERA ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD001', nombre: 'Pino cepillado 1x3" x 3m', categoria: 'Madera', subcategoria: 'Pino cepillado', marca: 'Local', unidad: 'Unidad', precio: 4290, stock: 40, stockMinimo: 12, destacado: false, imagen: '/img/MD001_Pino_cepillado_1x3_x_3m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD002', nombre: 'Pino cepillado 2x4" x 3m', categoria: 'Madera', subcategoria: 'Pino cepillado', marca: 'Local', unidad: 'Unidad', precio: 7490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/MD002_Pino_cepillado_2x4_x_3m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD003', nombre: 'Terciado estructural 18mm 1.22x2.44m', categoria: 'Madera', subcategoria: 'Tableros', marca: 'Arauco', unidad: 'Plancha', precio: 34990, stock: 20, stockMinimo: 5, destacado: true, imagen: '/img/MD003_Terciado_estructural_18mm_1_22x2_44m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD004', nombre: 'MDF 15mm 1.22x2.44m', categoria: 'Madera', subcategoria: 'Tableros', marca: 'Arauco', unidad: 'Plancha', precio: 27990, stock: 15, stockMinimo: 4, destacado: false, imagen: '/img/MD004_MDF_15mm_1_22x2_44m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD005', nombre: 'OSB 9mm 1.22x2.44m', categoria: 'Madera', subcategoria: 'Tableros', marca: 'Arauco', unidad: 'Plancha', precio: 18990, stock: 18, stockMinimo: 5, destacado: false, imagen: '/img/MD005_OSB_9mm_1_22x2_44m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD006', nombre: 'Volcanita estándar 10mm 1.2x2.4m', categoria: 'Madera', subcategoria: 'Tableros', marca: 'Volcán', unidad: 'Plancha', precio: 8990, stock: 30, stockMinimo: 8, destacado: false, imagen: '/img/MD006_Volcanita_est_ndar_10mm_1_2x2_4m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'MD007', nombre: 'Volcanita resistente humedad 10mm', categoria: 'Madera', subcategoria: 'Tableros', marca: 'Volcán', unidad: 'Plancha', precio: 11990, stock: 15, stockMinimo: 4, destacado: false, imagen: '/img/MD007_Volcanita_resistente_humedad_10mm.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== SEGURIDAD ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'SE001', nombre: 'Casco seguridad blanco', categoria: 'Seguridad', subcategoria: 'EPP', marca: '3M', unidad: 'Unidad', precio: 6990, stock: 15, stockMinimo: 5, destacado: false, imagen: '/img/SE001_Casco_seguridad_blanco.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'SE002', nombre: 'Guantes de cuero talla L', categoria: 'Seguridad', subcategoria: 'EPP', marca: '3M', unidad: 'Par', precio: 3690, stock: 20, stockMinimo: 6, destacado: false, imagen: '/img/SE002_Guantes_de_cuero_talla_L.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'SE003', nombre: 'Antiparras de seguridad clear', categoria: 'Seguridad', subcategoria: 'EPP', marca: '3M', unidad: 'Unidad', precio: 2490, stock: 25, stockMinimo: 8, destacado: false, imagen: '/img/SE003_Antiparras_de_seguridad_clear.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'SE004', nombre: 'Mascarilla respirador N95 (caja x10)', categoria: 'Seguridad', subcategoria: 'EPP', marca: '3M', unidad: 'Caja', precio: 10990, stock: 10, stockMinimo: 3, destacado: false, imagen: '/img/SE004_Mascarilla_respirador_N95_caja_x10_.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'SE005', nombre: 'Arnés de seguridad 1 punto', categoria: 'Seguridad', subcategoria: 'EPP', marca: '3M', unidad: 'Unidad', precio: 34990, stock: 4, stockMinimo: 1, destacado: false, imagen: '/img/SE005_Arn_s_de_seguridad_1_punto.jpg' },</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  // ==================== JARDÍN ====================</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'JA001', nombre: 'Manguera riego 3/4" x 25m', categoria: 'Jardín', subcategoria: 'Mangueras', marca: 'Tigre', unidad: 'Unidad', precio: 22990, stock: 6, stockMinimo: 2, destacado: false, imagen: '/img/JA001_Manguera_riego_3_4_x_25m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'JA002', nombre: 'Manguera expandible 30m', categoria: 'Jardín', subcategoria: 'Mangueras', marca: 'Bestway', unidad: 'Unidad', precio: 28990, stock: 5, stockMinimo: 2, destacado: false, imagen: '/img/JA002_Manguera_expandible_30m.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'JA003', nombre: 'Pistola de riego 8 modos', categoria: 'Jardín', subcategoria: 'Mangueras', marca: 'Bestway', unidad: 'Unidad', precio: 5490, stock: 10, stockMinimo: 3, destacado: false, imagen: '/img/JA003_Pistola_de_riego_8_modos.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'JA004', nombre: 'Pala punta redonda #2 con mango', categoria: 'Jardín', subcategoria: 'Herramientas', marca: 'Corona', unidad: 'Unidad', precio: 10990, stock: 8, stockMinimo: 2, destacado: false, imagen: '/img/JA004_Pala_punta_redonda_2_con_mango.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >  { id: 'JA005', nombre: 'Rastrillo 16 dientes con mango', categoria: 'Jardín', subcategoria: 'Herramientas', marca: 'Corona', unidad: 'Unidad', precio: 9490, stock: 6, stockMinimo: 2, destacado: false, imagen: '/img/JA005_Rastrillo_16_dientes_con_mango.jpg' },</span>
+<span class="cstat-no" title="statement not covered" >];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export default PRODUCTOS;</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-10-27T01:07:09.150Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

@@ -2,51 +2,118 @@
 
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CarritoModal } from './CarritoModal';
+import { useCarrito } from '../../context/CarritoContext';
+import { useAuth } from '../../context/AuthContext';
 
 export function NavbarApp() {
   const [showCarrito, setShowCarrito] = useState(false);
+  const { carrito, eliminarDelCarrito, vaciarCarrito } = useCarrito();
+  const { usuario, logout } = useAuth();
+  const navigate = useNavigate();
 
-  // Estado simulado para el ejemplo (luego se puede pasar a Context o Redux)
-  const [itemsCarrito, setItemsCarrito] = useState([]);
+  const cantidadTotal = carrito.reduce((acc, item) => acc + (item.cantidad || 1), 0);
+  const usuarioActivo = usuario || JSON.parse(localStorage.getItem('usuarioActivo'));
 
-  const handleClose = () => setShowCarrito(false);
-  const handleShow = () => setShowCarrito(true);
+  const handleLogout = () => {
+    if (logout) {
+      logout();
+    } else {
+      localStorage.removeItem('usuarioActivo');
+    }
+    navigate('/login');
+  };
+
+  const getBadgeColor = (rol) => {
+    if (rol === 'admin') return 'danger';
+    if (rol === 'vendedor') return 'warning';
+    return 'info';
+  };
 
   return (
     <>
-      <Navbar bg="primary" variant="dark" expand="lg" className="shadow-sm mb-4">
+      <Navbar bg="dark" variant="dark" expand="lg" className="shadow-sm sticky-top">
         <Container>
-          <Navbar.Brand as={Link} to="/" className="fw-bold">
-            🛠️ Ferretería Los Maestros
+          {/* Logo e Identidad Visual */}
+          <Navbar.Brand as={Link} to="/" className="fw-bold d-flex align-items-center gap-2 me-4">
+            <img
+              src="/img/logo.jpg"
+              alt="Ferretería Los Maestros"
+              className="rounded-circle object-fit-cover navbar-logo-img"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+            <span className="fs-5 text-white">Ferretería Los Maestros</span>
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+
+            {/* Navegación Principal */}
+            <Nav className="me-auto align-items-lg-center">
               <Nav.Link as={Link} to="/">Inicio</Nav.Link>
-              <Nav.Link as={Link} to="/catalogo">Catálogo</Nav.Link>
+              <Nav.Link as={Link} to="/catalogo">Productos</Nav.Link>
+              <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link>
+              <Nav.Link as={Link} to="/blogs">Blogs</Nav.Link>
+              <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
             </Nav>
-            <Nav className="d-flex align-items-center gap-3">
-              <Button variant="outline-light" onClick={handleShow} className="d-flex align-items-center gap-2">
+
+            {/* Acciones de Usuario y Carrito */}
+            <Nav className="d-flex align-items-center gap-2 mt-2 mt-lg-0">
+              <Button
+                variant="warning"
+                size="sm"
+                onClick={() => setShowCarrito(true)}
+                className="d-flex align-items-center gap-2 fw-bold text-dark px-3"
+              >
                 🛒 Carrito
-                <Badge bg="danger" pill>
-                  {itemsCarrito.length}
+                <Badge bg="dark" text="light" pill>
+                  {cantidadTotal}
                 </Badge>
               </Button>
-              <Nav.Link as={Link} to="/login" className="text-white">
-                Iniciar Sesión
-              </Nav.Link>
+
+              {usuarioActivo ? (
+                <div className="d-flex align-items-center gap-2 ms-2">
+                  <div className="text-white small d-none d-md-block text-end me-1">
+                    <span className="fw-bold d-block">{usuarioActivo.nombre || usuarioActivo.correo}</span>
+                    <Badge bg={getBadgeColor(usuarioActivo.rol)} className="text-capitalize">
+                      {usuarioActivo.rol || 'cliente'}
+                    </Badge>
+                  </div>
+
+                  {(usuarioActivo.rol === 'admin' || usuarioActivo.rol === 'vendedor') && (
+                    <Button as={Link} to="/admin" variant="outline-warning" size="sm" className="fw-bold">
+                      ⚙️ Admin
+                    </Button>
+                  )}
+
+                  <Button variant="outline-danger" size="sm" onClick={handleLogout}>
+                    Salir
+                  </Button>
+                </div>
+              ) : (
+                <div className="d-flex gap-2 ms-2">
+                  <Nav.Link as={Link} to="/login" className="text-white btn btn-sm btn-outline-secondary px-2">
+                    Iniciar Sesión
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/registro" className="text-white btn btn-sm btn-warning text-dark fw-bold px-2">
+                    Registro
+                  </Nav.Link>
+                </div>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      {/* Modal del carrito integrado */}
       <CarritoModal
         show={showCarrito}
-        handleClose={handleClose}
-        items={itemsCarrito}
+        handleClose={() => setShowCarrito(false)}
+        items={carrito}
+        onRemoveItem={eliminarDelCarrito}
+        onVaciarCarrito={vaciarCarrito}
       />
     </>
   );

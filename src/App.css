@@ -1,6 +1,62 @@
 /* Desarrollado por: Jonathan Ulloa (src/App.css) */
-.border-start-md {
-  @media (min-width: 768px) {
+
+@media (min-width: 768px) {
+  .border-start-md {
     border-left: 1px solid #dee2e6 !important;
   }
+}
+
+.navbar-logo-img {
+  width: 36px;
+  height: 36px;
+}
+
+.navbar-search-container {
+  max-width: 300px;
+}
+
+.hero-banner-dark {
+  background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
+}
+
+.hero-lead-text {
+  max-width: 540px;
+}
+
+.product-card-img-container {
+  height: 200px;
+}
+
+.product-card-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.hover-scale {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: translateY(-4px);
+}
+
+.text-gray-300 {
+  color: #d1d5db;
+}
+
+.extra-small {
+  font-size: 0.75rem;
+}
+
+.width-60 {
+  width: 60px;
+}
+
+.height-60 {
+  height: 60px;
+}
+
+.max-w-600 {
+  max-width: 600px;
 }
