@@ -1,8 +1,4 @@
 // Desarrollado por: Jonathan Ulloa (src/components/organisms/CarritoModal.jsx)
-// Instrucciones para Jonathan (BORRAR estas 3 líneas antes de ejecutar git add):
-// git add src/components/organisms/CarritoModal.jsx
-// git commit -m "fix(organisms): vincular correctamente eventos + y - con actualizarCantidad en CarritoModal"
-// git push origin main
 
 import React, { useState } from 'react';
 import { Modal, Table, Button, Alert } from 'react-bootstrap';
