@@ -4,13 +4,14 @@ import React from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../components/templates/AdminLayout';
-import { PRODUCTOS } from '../data/productos';
+import { useProductos } from '../context/ProductosContext';
 import { useAuth } from '../context/AuthContext';
 
 export function AdminDashboardPage() {
-    const { usuario } = useAuth();
-    const totalProductos = PRODUCTOS.length;
-    const stockCritico = PRODUCTOS.filter((p) => p.stock <= (p.stockMinimo || 5)).length;
+    const { usuario, esAdmin } = useAuth();
+    const { productos } = useProductos();
+    const totalProductos = productos.length;
+    const stockCritico = productos.filter((p) => p.stock <= (p.stockMinimo || 5)).length;
 
     return (
         <AdminLayout>
@@ -57,7 +58,7 @@ export function AdminDashboardPage() {
                     <Button as={Link} to="/admin/productos" variant="primary">
                         📦 Gestionar Productos
                     </Button>
-                    {usuario?.rol === 'admin' && (
+                    {esAdmin && (
                         <Button as={Link} to="/admin/usuarios" variant="dark">
                             👥 Gestionar Usuarios
                         </Button>

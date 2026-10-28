@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Button, Card, Badge } from 'react-bootstrap';
 import { TarjetaProducto } from '../components/molecules/TarjetaProducto';
 import { BuscadorProductos } from '../components/molecules/BuscadorProductos';
-import { PRODUCTOS, CATEGORIAS } from '../data/productos';
+import { CATEGORIAS } from '../data/productos';
+import { useProductos } from '../context/ProductosContext';
 
 export function CatalogoPage() {
+  const { productos } = useProductos();
   const [busqueda, setBusqueda] = useState('');
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
 
   // Filtrado dinámico por término de búsqueda y categoría
-  const productosFiltrados = PRODUCTOS.filter((prod) => {
+  const productosFiltrados = productos.filter((prod) => {
     const coincideTexto =
       prod.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
       prod.categoria.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -43,16 +45,15 @@ export function CatalogoPage() {
               <BuscadorProductos
                 valor={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
-                onBuscar={() => { }}
               />
             </Col>
           </Row>
 
           {/* Botones de Selección Rápida por Categoría */}
           <div className="d-flex flex-wrap gap-2 mt-3 pt-3 border-top">
-            {CATEGORIAS.map((cat, idx) => (
+            {CATEGORIAS.map((cat) => (
               <Button
-                key={idx}
+                key={cat}
                 variant={categoriaSeleccionada === cat ? 'warning' : 'outline-dark'}
                 size="sm"
                 className={`fw-bold ${categoriaSeleccionada === cat ? 'text-dark shadow-sm' : ''}`}

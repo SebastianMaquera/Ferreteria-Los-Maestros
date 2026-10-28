@@ -1,40 +1,62 @@
 // Desarrollado por: Jonathan Ulloa (src/pages/AdminUsuariosPage.jsx)
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Table, Button, Card, Badge, Modal, Form, Alert } from 'react-bootstrap';
 import AdminLayout from '../components/templates/AdminLayout';
+import { FormFieldGroup } from '../components/molecules/FormFieldGroup';
 import { obtenerUsuarios, registrarUsuario } from '../services/userService';
+import { validarNombre, validarCorreoDuoc, validarRun, validarClave } from '../utils/validaciones';
+
+const FORM_VACIO = {
+    nombre: '',
+    correo: '',
+    run: '',
+    password: '',
+    rol: 'cliente'
+};
 
 export function AdminUsuariosPage() {
-    const [usuarios, setUsuarios] = useState([]);
+    const [usuarios, setUsuarios] = useState(obtenerUsuarios);
     const [showModal, setShowModal] = useState(false);
     const [alerta, setAlerta] = useState('');
     const [errorModal, setErrorModal] = useState('');
-    const [form, setForm] = useState({
-        nombre: '',
-        correo: '',
-        run: '',
-        rol: 'cliente'
-    });
+    const [form, setForm] = useState(FORM_VACIO);
 
-    useEffect(() => {
-        setUsuarios(obtenerUsuarios());
-    }, []);
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
     const handleGuardar = (e) => {
         e.preventDefault();
         setErrorModal('');
 
-        if (!form.nombre.trim() || !form.correo.trim() || !form.run.trim()) {
+        if (!form.nombre.trim() || !form.correo.trim() || !form.run.trim() || !form.password) {
             setErrorModal('Por favor, completa todos los campos del usuario.');
             return;
         }
+        if (!validarNombre(form.nombre)) {
+            setErrorModal('El nombre solo debe contener letras (mínimo 3 caracteres).');
+            return;
+        }
+        if (!validarCorreoDuoc(form.correo)) {
+            setErrorModal('Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com.');
+            return;
+        }
+        if (!validarRun(form.run)) {
+            setErrorModal('RUN inválido. Debe tener entre 8 y 9 caracteres sin puntos ni guión (ej: 19011022K).');
+            return;
+        }
+        const errorClave = validarClave(form.password);
+        if (errorClave) {
+            setErrorModal(errorClave);
+            return;
+        }
 
-        const res = registrarUsuario(form);
+        const res = registrarUsuario({ ...form, run: form.run.trim().toUpperCase() });
         if (res.exito) {
             setUsuarios(obtenerUsuarios());
             setShowModal(false);
-            setForm({ nombre: '', correo: '', run: '', rol: 'cliente' });
+            setForm(FORM_VACIO);
             setAlerta('Usuario creado con éxito.');
         } else {
             setErrorModal(res.mensaje || 'Error al guardar el usuario.');
@@ -106,36 +128,42 @@ export function AdminUsuariosPage() {
                     <Modal.Body>
                         {errorModal && <Alert variant="danger">{errorModal}</Alert>}
 
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Nombre Completo</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={form.nombre}
-                                onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Correo Electrónico</Form.Label>
-                            <Form.Control
-                                type="email"
-                                value={form.correo}
-                                onChange={(e) => setForm({ ...form, correo: e.target.value })}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">RUN</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={form.run}
-                                onChange={(e) => setForm({ ...form, run: e.target.value })}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Rol de Usuario</Form.Label>
-                            <Form.Select
-                                value={form.rol}
-                                onChange={(e) => setForm({ ...form, rol: e.target.value })}
-                            >
+                        <FormFieldGroup
+                            controlId="usuario-nombre"
+                            label="Nombre Completo"
+                            name="nombre"
+                            value={form.nombre}
+                            onChange={handleChange}
+                        />
+                        <FormFieldGroup
+                            controlId="usuario-correo"
+                            label="Correo Electrónico"
+                            type="email"
+                            name="correo"
+                            value={form.correo}
+                            onChange={handleChange}
+                        />
+                        <FormFieldGroup
+                            controlId="usuario-run"
+                            label="RUN"
+                            name="run"
+                            maxLength={9}
+                            value={form.run}
+                            onChange={handleChange}
+                        />
+                        <FormFieldGroup
+                            controlId="usuario-password"
+                            label="Contraseña"
+                            type="password"
+                            name="password"
+                            maxLength={10}
+                            helpText="Entre 4 y 10 caracteres."
+                            value={form.password}
+                            onChange={handleChange}
+                        />
+                        <Form.Group className="mb-3" controlId="usuario-rol">
+                            <Form.Label className="fw-bold text-dark">Rol de Usuario</Form.Label>
+                            <Form.Select name="rol" value={form.rol} onChange={handleChange}>
                                 <option value="cliente">Cliente</option>
                                 <option value="vendedor">Vendedor</option>
                                 <option value="admin">Administrador</option>

@@ -3,59 +3,95 @@
 import React, { useState } from 'react';
 import { Table, Button, Card, Badge, Modal, Form, Alert } from 'react-bootstrap';
 import AdminLayout from '../components/templates/AdminLayout';
-import { PRODUCTOS } from '../data/productos';
+import { FormFieldGroup } from '../components/molecules/FormFieldGroup';
+import { useProductos } from '../context/ProductosContext';
+import { CATEGORIAS } from '../data/productos';
+
+const CATEGORIAS_PRODUCTO = CATEGORIAS.filter((cat) => cat !== 'Todas');
+
+const FORM_VACIO = {
+    nombre: '',
+    categoria: 'Herramientas',
+    marca: '',
+    precio: '',
+    stock: ''
+};
 
 export function AdminProductosPage() {
-    const [listaProductos, setListaProductos] = useState(PRODUCTOS);
-    const [showModal, setShowModal] = useState(false);
-    const [alerta, setAlerta] = useState('');
-    const [errorModal, setErrorModal] = useState('');
-    const [nuevoProd, setNuevoProd] = useState({
-        nombre: '',
-        precio: '',
-        categoria: 'Herramientas',
-        stock: ''
-    });
+    const { productos, agregarProducto, editarProducto, quitarProducto, restaurarProductos } = useProductos();
 
-    const handleEliminar = (id) => {
-        setListaProductos((prev) => prev.filter((p) => p.id !== id));
-        setAlerta('Producto eliminado correctamente.');
+    const [showModal, setShowModal] = useState(false);
+    const [idEditando, setIdEditando] = useState(null);
+    const [form, setForm] = useState(FORM_VACIO);
+    const [errorModal, setErrorModal] = useState('');
+    const [alerta, setAlerta] = useState('');
+    const [productoAEliminar, setProductoAEliminar] = useState(null);
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const abrirCrear = () => {
+        setIdEditando(null);
+        setForm(FORM_VACIO);
+        setErrorModal('');
+        setShowModal(true);
+    };
+
+    const abrirEditar = (producto) => {
+        setIdEditando(producto.id);
+        setForm({
+            nombre: producto.nombre,
+            categoria: producto.categoria,
+            marca: producto.marca || '',
+            precio: String(producto.precio),
+            stock: String(producto.stock)
+        });
+        setErrorModal('');
+        setShowModal(true);
     };
 
     const handleGuardar = (e) => {
         e.preventDefault();
         setErrorModal('');
 
-        if (!nuevoProd.nombre.trim() || !nuevoProd.precio || !nuevoProd.stock) {
-            setErrorModal('Por favor, completa todos los campos del producto.');
+        const resultado = idEditando ? editarProducto(idEditando, form) : agregarProducto(form);
+
+        if (!resultado.exito) {
+            setErrorModal(resultado.mensaje);
             return;
         }
 
-        const nuevo = {
-            id: Date.now(),
-            nombre: nuevoProd.nombre.trim(),
-            precio: Number(nuevoProd.precio),
-            categoria: nuevoProd.categoria,
-            stock: Number(nuevoProd.stock),
-            stockMinimo: 5
-        };
-
-        setListaProductos([nuevo, ...listaProductos]);
         setShowModal(false);
-        setNuevoProd({ nombre: '', precio: '', categoria: 'Herramientas', stock: '' });
-        setAlerta('Producto creado con éxito.');
+        setAlerta(idEditando ? 'Producto actualizado con éxito.' : 'Producto creado con éxito.');
+    };
+
+    const handleConfirmarEliminar = () => {
+        quitarProducto(productoAEliminar.id);
+        setAlerta(`Producto "${productoAEliminar.nombre}" eliminado correctamente.`);
+        setProductoAEliminar(null);
+    };
+
+    const handleRestaurar = () => {
+        restaurarProductos();
+        setAlerta('Catálogo restaurado a los datos originales.');
     };
 
     return (
         <AdminLayout>
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
                 <div>
                     <h2 className="fw-bold text-dark mb-0">📦 Mantenedor de Productos</h2>
                     <p className="text-muted mb-0">Administración de inventario y precios</p>
                 </div>
-                <Button variant="success" className="fw-bold" onClick={() => { setErrorModal(''); setShowModal(true); }}>
-                    + Nuevo Producto
-                </Button>
+                <div className="d-flex gap-2">
+                    <Button variant="outline-secondary" onClick={handleRestaurar}>
+                        ↺ Restaurar catálogo
+                    </Button>
+                    <Button variant="success" className="fw-bold" onClick={abrirCrear}>
+                        + Nuevo Producto
+                    </Button>
+                </div>
             </div>
 
             {alerta && (
@@ -78,78 +114,99 @@ export function AdminProductosPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {listaProductos.map((prod) => (
-                                <tr key={prod.id}>
-                                    <td><strong>#{prod.id}</strong></td>
-                                    <td>{prod.nombre}</td>
-                                    <td><Badge bg="secondary">{prod.categoria}</Badge></td>
-                                    <td>${prod.precio?.toLocaleString('es-CL')}</td>
-                                    <td>
-                                        <Badge bg={prod.stock <= 5 ? 'danger' : 'success'}>
-                                            {prod.stock} un.
-                                        </Badge>
-                                    </td>
-                                    <td className="text-end px-4">
-                                        <Button
-                                            variant="outline-danger"
-                                            size="sm"
-                                            onClick={() => handleEliminar(prod.id)}
-                                        >
-                                            Eliminar
-                                        </Button>
+                            {productos.length === 0 ? (
+                                <tr>
+                                    <td colSpan="6" className="text-center py-3 text-muted">
+                                        No hay productos registrados.
                                     </td>
                                 </tr>
-                            ))}
+                            ) : (
+                                productos.map((prod) => (
+                                    <tr key={prod.id}>
+                                        <td><strong>#{prod.id}</strong></td>
+                                        <td>{prod.nombre}</td>
+                                        <td><Badge bg="secondary">{prod.categoria}</Badge></td>
+                                        <td>${prod.precio?.toLocaleString('es-CL')}</td>
+                                        <td>
+                                            <Badge bg={prod.stock <= (prod.stockMinimo || 5) ? 'danger' : 'success'}>
+                                                {prod.stock} un.
+                                            </Badge>
+                                        </td>
+                                        <td className="text-end px-4">
+                                            <div className="d-flex justify-content-end gap-2">
+                                                <Button
+                                                    variant="outline-primary"
+                                                    size="sm"
+                                                    onClick={() => abrirEditar(prod)}
+                                                >
+                                                    Editar
+                                                </Button>
+                                                <Button
+                                                    variant="outline-danger"
+                                                    size="sm"
+                                                    onClick={() => setProductoAEliminar(prod)}
+                                                >
+                                                    Eliminar
+                                                </Button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </Table>
                 </Card.Body>
             </Card>
 
-            {/* Modal para Crear Producto */}
+            {/* Modal para Crear / Editar Producto */}
             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title className="fw-bold">Nuevo Producto</Modal.Title>
+                    <Modal.Title className="fw-bold">
+                        {idEditando ? 'Editar Producto' : 'Nuevo Producto'}
+                    </Modal.Title>
                 </Modal.Header>
                 <Form onSubmit={handleGuardar} noValidate>
                     <Modal.Body>
                         {errorModal && <Alert variant="danger">{errorModal}</Alert>}
 
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Nombre del Producto</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={nuevoProd.nombre}
-                                onChange={(e) => setNuevoProd({ ...nuevoProd, nombre: e.target.value })}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Categoría</Form.Label>
-                            <Form.Select
-                                value={nuevoProd.categoria}
-                                onChange={(e) => setNuevoProd({ ...nuevoProd, categoria: e.target.value })}
-                            >
-                                <option value="Herramientas">Herramientas</option>
-                                <option value="Mat. Construcción">Mat. Construcción</option>
-                                <option value="Pinturas">Pinturas</option>
-                                <option value="Gasfitería">Gasfitería</option>
+                        <FormFieldGroup
+                            controlId="producto-nombre"
+                            label="Nombre del Producto"
+                            name="nombre"
+                            value={form.nombre}
+                            onChange={handleChange}
+                        />
+                        <FormFieldGroup
+                            controlId="producto-marca"
+                            label="Marca"
+                            name="marca"
+                            value={form.marca}
+                            onChange={handleChange}
+                        />
+                        <Form.Group className="mb-3" controlId="producto-categoria">
+                            <Form.Label className="fw-bold text-dark">Categoría</Form.Label>
+                            <Form.Select name="categoria" value={form.categoria} onChange={handleChange}>
+                                {CATEGORIAS_PRODUCTO.map((cat) => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Precio ($)</Form.Label>
-                            <Form.Control
-                                type="number"
-                                value={nuevoProd.precio}
-                                onChange={(e) => setNuevoProd({ ...nuevoProd, precio: e.target.value })}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Stock Inicial</Form.Label>
-                            <Form.Control
-                                type="number"
-                                value={nuevoProd.stock}
-                                onChange={(e) => setNuevoProd({ ...nuevoProd, stock: e.target.value })}
-                            />
-                        </Form.Group>
+                        <FormFieldGroup
+                            controlId="producto-precio"
+                            label="Precio ($)"
+                            type="number"
+                            name="precio"
+                            value={form.precio}
+                            onChange={handleChange}
+                        />
+                        <FormFieldGroup
+                            controlId="producto-stock"
+                            label={idEditando ? 'Stock' : 'Stock Inicial'}
+                            type="number"
+                            name="stock"
+                            value={form.stock}
+                            onChange={handleChange}
+                        />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => setShowModal(false)}>
@@ -160,6 +217,25 @@ export function AdminProductosPage() {
                         </Button>
                     </Modal.Footer>
                 </Form>
+            </Modal>
+
+            {/* Confirmación de eliminación mediante un modal propio */}
+            <Modal show={productoAEliminar !== null} onHide={() => setProductoAEliminar(null)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="fw-bold">Eliminar producto</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    ¿Seguro que quieres eliminar <strong>{productoAEliminar?.nombre}</strong>?
+                    Esta acción no se puede deshacer (salvo restaurando el catálogo).
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setProductoAEliminar(null)}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={handleConfirmarEliminar}>
+                        Eliminar
+                    </Button>
+                </Modal.Footer>
             </Modal>
         </AdminLayout>
     );

@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import { Modal, Table, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCarrito } from '../../context/CarritoContext';
+import { useAuth } from '../../context/AuthContext';
 
-export function CarritoModal({ show, handleClose, items, onRemoveItem }) {
-    const { actualizarCantidad, vaciarCarrito } = useCarrito();
+export function CarritoModal({ show, handleClose }) {
+    const { carrito, eliminarDelCarrito, actualizarCantidad, vaciarCarrito } = useCarrito();
+    const { usuario } = useAuth();
     const [mensaje, setMensaje] = useState(null);
     const [procesando, setProcesando] = useState(false);
     const navigate = useNavigate();
 
-    const listaItems = items || [];
+    const listaItems = carrito;
 
     const total = listaItems.reduce(
         (acc, item) => acc + (item.precio || 0) * (item.cantidad || 1),
@@ -27,6 +29,20 @@ export function CarritoModal({ show, handleClose, items, onRemoveItem }) {
         if (listaItems.length === 0) {
             setMensaje({ tipo: 'warning', texto: 'El carrito está vacío. Agrega productos antes de comprar.' });
             setTimeout(() => setMensaje(null), 3000);
+            return;
+        }
+
+        // Exigir inicio de sesión obligatorio
+        if (!usuario) {
+            setMensaje({
+                tipo: 'warning',
+                texto: '🔒 Debes iniciar sesión para finalizar tu compra. Redirigiendo al inicio de sesión...'
+            });
+            setTimeout(() => {
+                setMensaje(null);
+                handleClose();
+                navigate('/login');
+            }, 2200);
             return;
         }
 
@@ -51,7 +67,7 @@ export function CarritoModal({ show, handleClose, items, onRemoveItem }) {
             </Modal.Header>
             <Modal.Body className="p-4">
                 {mensaje && (
-                    <Alert variant={mensaje.tipo} className="mb-3 text-center fw-bold py-2">
+                    <Alert variant={mensaje.tipo} className="mb-3 text-center fw-bold py-2 text-dark">
                         {mensaje.texto}
                     </Alert>
                 )}
@@ -95,7 +111,7 @@ export function CarritoModal({ show, handleClose, items, onRemoveItem }) {
                                                         size="sm"
                                                         className="px-2 py-0 fw-bold"
                                                         onClick={() => actualizarCantidad(item.id, cantidad + 1)}
-                                                        disabled={procesando}
+                                                        disabled={procesando || cantidad >= (item.stock ?? Infinity)}
                                                     >
                                                         +
                                                     </Button>
@@ -107,7 +123,7 @@ export function CarritoModal({ show, handleClose, items, onRemoveItem }) {
                                                 <Button
                                                     variant="outline-danger"
                                                     size="sm"
-                                                    onClick={() => onRemoveItem(item.id)}
+                                                    onClick={() => eliminarDelCarrito(item.id)}
                                                     disabled={procesando}
                                                 >
                                                     Eliminar

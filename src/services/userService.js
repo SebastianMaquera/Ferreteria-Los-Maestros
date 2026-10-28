@@ -1,6 +1,6 @@
 // Desarrollado por: Camilo Alarcón (src/services/userService.js)
 
-export const USUARIOS_INICIALES = [
+const USUARIOS_INICIALES = [
     {
         id: 1,
         run: '111111111',
@@ -45,7 +45,7 @@ export const obtenerUsuarios = () => {
         }
         const parseados = JSON.parse(usuarios);
         return Array.isArray(parseados) && parseados.length > 0 ? parseados : USUARIOS_INICIALES;
-    } catch (error) {
+    } catch {
         return USUARIOS_INICIALES;
     }
 };
@@ -90,7 +90,7 @@ export const registrarUsuario = (nuevoUsuario) => {
         correo: correoLimpio,
         password: claveIngresada,
         contrasena: claveIngresada,
-        rol: nuevoUsuario.rol || (correoLimpio.includes('admin') ? 'admin' : 'cliente')
+        rol: nuevoUsuario.rol || 'cliente'
     };
 
     const nuevaLista = [...usuarios, usuarioConId];

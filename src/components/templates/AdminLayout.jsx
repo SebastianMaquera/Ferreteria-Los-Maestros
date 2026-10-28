@@ -1,4 +1,4 @@
-// Desarrollado por: Camilo Alarcón (src/templates/AdminLayout.jsx)
+// Desarrollado por: Camilo Alarcón (src/components/templates/AdminLayout.jsx)
 
 import React from 'react';
 import { Row, Col, Container } from 'react-bootstrap';

@@ -14,19 +14,21 @@ La aplicación permite la consulta de stock de más de 800 productos en tiempo r
 gestión digital de cuentas corrientes para contratistas autorizados y alertas de reposición de stock mínimo para el dueño.
 
 ## Estructura del proyecto
+Arquitectura Atomic Design + servicios con localStorage + contextos (React Context):
 ```
 src/
 ├── components/
-│   ├── atoms/
-│   │   ├── ButtonSubmit.jsx
-│   │   └── Input.jsx
-│   ├── molecules/
-│   │   └── FormFieldGroup.jsx
-│   ├── organisms/
-│   │   └── LoginForm.jsx
-│   └── templates/
-└── pages/
-└── LoginPage.jsx
+│   ├── atoms/          Input, ButtonSubmit, EtiquetaCategoria
+│   ├── molecules/      FormFieldGroup, BuscadorProductos, TarjetaProducto
+│   ├── organisms/      NavbarApp, FooterApp, LoginForm, CarritoModal, AdminSidebar, ProtectedRoute
+│   └── templates/      MainLayout (páginas públicas), AdminLayout (panel admin)
+├── pages/              Home, CatalogoPage, DetalleProductoPage, LoginPage, RegistroPage,
+│                       ContactoPage, NosotrosPage, BlogsPage, AdminDashboardPage,
+│                       AdminProductosPage, AdminUsuariosPage
+├── context/            AuthContext, CarritoContext, ProductosContext
+├── services/           authService, carritoService, productoService, userService (CRUD simulado con localStorage)
+├── data/               productos.js (catálogo inicial), regiones.js
+└── utils/              validaciones.js
 ```
 
 ## Tecnologías
@@ -58,7 +60,7 @@ git clone <link_del_repositorio>
 git add README.md
 git commit -m "fix: corregir formato de bloque de codigo en arbol de carpetas del README"
 git push
-
+```
 
 # Bitácora de Trabajo del Equipo
 

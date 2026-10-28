@@ -3,13 +3,13 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useCarrito } from '../context/CarritoContext';
-import { PRODUCTOS } from '../data/productos';
+import { TarjetaProducto } from '../components/molecules/TarjetaProducto';
+import { useProductos } from '../context/ProductosContext';
 
 export function Home() {
-    const { agregarAlCarrito } = useCarrito();
+    const { productos } = useProductos();
 
-    const productosDestacados = PRODUCTOS.filter((p) => p.destacado);
+    const productosDestacados = productos.filter((p) => p.destacado);
 
     return (
         <div className="bg-light pb-5">
@@ -118,71 +118,11 @@ export function Home() {
                 </div>
 
                 <Row className="gy-4">
-                    {productosDestacados.map((prod) => {
-                        const precioOferta = prod.precio;
-                        const precioOriginal = Math.round(precioOferta * 1.15);
-                        const porcentajeDcto = Math.round(((precioOriginal - precioOferta) / precioOriginal) * 100);
-
-                        return (
-                            <Col key={prod.id} xs={12} sm={6} md={3}>
-                                <Card className="h-100 border-0 shadow-sm position-relative overflow-hidden">
-                                    <Badge bg="warning" text="dark" className="position-absolute top-0 start-0 m-2 fw-bold shadow-sm z-1">
-                                        -{porcentajeDcto}%
-                                    </Badge>
-
-                                    <div className="position-relative bg-white rounded-top d-flex align-items-center justify-content-center p-3 product-card-img-container">
-                                        <Card.Img
-                                            variant="top"
-                                            src={prod.imagen || '/img/shopping.webp'}
-                                            alt={prod.nombre}
-                                            className="product-card-img"
-                                            onError={(e) => {
-                                                e.target.onerror = null;
-                                                e.target.src = '/img/shopping.webp';
-                                            }}
-                                        />
-                                    </div>
-
-                                    <Card.Body className="d-flex flex-column justify-content-between p-3">
-                                        <div>
-                                            <span className="text-muted extra-small d-block mb-1">{prod.categoria}</span>
-                                            <Card.Title className="h6 fw-bold mb-2 text-dark text-truncate" title={prod.nombre}>
-                                                {prod.nombre}
-                                            </Card.Title>
-
-                                            <div className="d-flex align-items-baseline gap-2 mb-3">
-                                                <span className="fw-bold text-dark fs-5">
-                                                    ${precioOferta.toLocaleString('es-CL')}
-                                                </span>
-                                                <span className="text-muted text-decoration-line-through small">
-                                                    ${precioOriginal.toLocaleString('es-CL')}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div className="d-grid gap-2">
-                                            <Button
-                                                variant="warning"
-                                                size="sm"
-                                                className="fw-bold text-dark d-flex align-items-center justify-content-center gap-1"
-                                                onClick={() => agregarAlCarrito(prod)}
-                                            >
-                                                🛒 Agregar al carrito
-                                            </Button>
-                                            <Button
-                                                as={Link}
-                                                to={`/producto/${prod.id}`}
-                                                variant="outline-secondary"
-                                                size="sm"
-                                            >
-                                                Ver Detalle
-                                            </Button>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        );
-                    })}
+                    {productosDestacados.map((prod) => (
+                        <Col key={prod.id} xs={12} sm={6} md={3}>
+                            <TarjetaProducto producto={prod} />
+                        </Col>
+                    ))}
                 </Row>
             </Container>
 
