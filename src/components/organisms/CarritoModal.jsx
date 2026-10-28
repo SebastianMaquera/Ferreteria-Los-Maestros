@@ -5,10 +5,12 @@ import { Modal, Table, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCarrito } from '../../context/CarritoContext';
 import { useAuth } from '../../context/AuthContext';
+import { useProductos } from '../../context/ProductosContext';
 
 export function CarritoModal({ show, handleClose }) {
     const { carrito, eliminarDelCarrito, actualizarCantidad, vaciarCarrito } = useCarrito();
     const { usuario } = useAuth();
+    const { productos, editarProducto } = useProductos();
     const [mensaje, setMensaje] = useState(null);
     const [procesando, setProcesando] = useState(false);
     const navigate = useNavigate();
@@ -45,6 +47,26 @@ export function CarritoModal({ show, handleClose }) {
             }, 2200);
             return;
         }
+
+        // Verificar contra el stock REAL actual antes de descontar
+        const sinStock = listaItems.find((item) => {
+            const prod = productos.find((p) => String(p.id) === String(item.id));
+            return !prod || (item.cantidad || 1) > (prod.stock || 0);
+        });
+        if (sinStock) {
+            setMensaje({
+                tipo: 'danger',
+                texto: `❌ No hay stock suficiente de "${sinStock.nombre}". Ajusta la cantidad e intenta de nuevo.`
+            });
+            setTimeout(() => setMensaje(null), 3500);
+            return;
+        }
+
+        // Descontar el stock de cada producto comprado
+        listaItems.forEach((item) => {
+            const prod = productos.find((p) => String(p.id) === String(item.id));
+            editarProducto(item.id, { stock: prod.stock - (item.cantidad || 1) });
+        });
 
         setProcesando(true);
         setMensaje({
@@ -111,7 +133,7 @@ export function CarritoModal({ show, handleClose }) {
                                                         size="sm"
                                                         className="px-2 py-0 fw-bold"
                                                         onClick={() => actualizarCantidad(item.id, cantidad + 1)}
-                                                        disabled={procesando || cantidad >= (item.stock ?? Infinity)}
+                                                        disabled={procesando || cantidad >= (productos.find((p) => String(p.id) === String(item.id))?.stock ?? item.stock ?? Infinity)}
                                                     >
                                                         +
                                                     </Button>
