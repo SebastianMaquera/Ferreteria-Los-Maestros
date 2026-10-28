@@ -34,12 +34,12 @@ export function validarRun(run) {
   if (!run) return false;
   // Verifica que sean 7 a 8 números seguidos de un número o letra K (ej: 19011022K)
   const runRegex = /^[0-9]{7,8}[0-9Kk]$/;
-  return runRegex.test(run);
+  return runRegex.test(run.trim());
 }
 
-export default {
-  validarCorreo,
-  validarClave,
-  validarCorreoDuoc,
-  validarRun
-};
+export function validarNombre(nombre) {
+  if (!nombre || typeof nombre !== 'string') return false;
+  // Solo permite letras (con acentos y ñ) y espacios (mínimo 3, máximo 50 caracteres)
+  const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,50}$/;
+  return nombreRegex.test(nombre.trim());
+}

@@ -33,7 +33,7 @@ export const PRODUCTOS = [
   { id: 'PT004', nombre: 'Esmalte sintético 1/4 litro (varios col.)', categoria: 'Pinturas', subcategoria: 'Esmalte', marca: 'Sipa', unidad: '1/4 L', precio: 4290, stock: 50, stockMinimo: 15, destacado: false, imagen: '/img/PT004.jpg' },
   { id: 'PT005', nombre: 'Esmalte sintético 1 litro (varios col.)', categoria: 'Pinturas', subcategoria: 'Esmalte', marca: 'Sipa', unidad: '1 litro', precio: 9490, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/PT005.jpg' },
   { id: 'PT006', nombre: 'Pintura antihumedad 1 galón blanco', categoria: 'Pinturas', subcategoria: 'Antihumedad', marca: 'Kömex', unidad: 'Galón', precio: 17990, stock: 15, stockMinimo: 5, destacado: false, imagen: '/img/PT006.jpg' },
-  { id: 'PT007', nombre: 'Rodillo lana 23 cm con mango', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: 'Wurth', unidad: 'Unidad', precio: 3990, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/PT007.jpg' },
+  { id: 'PT007', nombre: 'Rodillo lana 23 cm con mango', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: 'Wurth', unidad: 'Unidad', precio: 3990, stock: 30, stockMinimo: 10, destacado: false, imagen: '/img/GS002_Ca_er_a_PVC_3_4_x_6m.jpg' },
   { id: 'PT008', nombre: 'Brocha cerda natural 3"', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: 'Sipa', unidad: 'Unidad', precio: 1690, stock: 40, stockMinimo: 10, destacado: false, imagen: '/img/PT008.jpg' },
   { id: 'PT009', nombre: 'Cinta de enmascarar 24mm x 50m', categoria: 'Pinturas', subcategoria: 'Accesorios', marca: '3M', unidad: 'Rollo', precio: 2490, stock: 60, stockMinimo: 20, destacado: false, imagen: '/img/PT009.jpg' },
 
@@ -117,5 +117,3 @@ export const PRODUCTOS = [
   { id: 'JA004', nombre: 'Pala punta redonda #2 con mango', categoria: 'Jardín', subcategoria: 'Herramientas', marca: 'Corona', unidad: 'Unidad', precio: 10990, stock: 8, stockMinimo: 2, destacado: false, imagen: '/img/JA004_Pala_punta_redonda_2_con_mango.jpg' },
   { id: 'JA005', nombre: 'Rastrillo 16 dientes con mango', categoria: 'Jardín', subcategoria: 'Herramientas', marca: 'Corona', unidad: 'Unidad', precio: 9490, stock: 6, stockMinimo: 2, destacado: false, imagen: '/img/JA005_Rastrillo_16_dientes_con_mango.jpg' },
 ];
-
-export default PRODUCTOS;

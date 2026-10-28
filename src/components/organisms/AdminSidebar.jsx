@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 export function AdminSidebar() {
-    const { usuario, logout } = useAuth();
+    const { usuario, logout, esAdmin } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -24,18 +24,18 @@ export function AdminSidebar() {
                     <span className="badge bg-primary text-uppercase mt-1">{usuario?.rol || 'admin'}</span>
                 </div>
                 <Nav className="flex-column gap-2">
-                    <Nav.Link as={Link} to="/admin" className="text-white hover-bg-secondary rounded px-2">
+                    <Nav.Link as={Link} to="/admin" className="text-white rounded px-2">
                         📊 Dashboard
                     </Nav.Link>
-                    <Nav.Link as={Link} to="/admin/productos" className="text-white hover-bg-secondary rounded px-2">
+                    <Nav.Link as={Link} to="/admin/productos" className="text-white rounded px-2">
                         📦 Mantenedor Productos
                     </Nav.Link>
-                    {usuario?.rol === 'admin' && (
-                        <Nav.Link as={Link} to="/admin/usuarios" className="text-white hover-bg-secondary rounded px-2">
+                    {esAdmin && (
+                        <Nav.Link as={Link} to="/admin/usuarios" className="text-white rounded px-2">
                             👥 Mantenedor Usuarios
                         </Nav.Link>
                     )}
-                    <Nav.Link as={Link} to="/" className="text-white-50 hover-bg-secondary rounded px-2 mt-3">
+                    <Nav.Link as={Link} to="/" className="text-white-50 rounded px-2 mt-3">
                         ⬅️ Volver a la Tienda
                     </Nav.Link>
                 </Nav>

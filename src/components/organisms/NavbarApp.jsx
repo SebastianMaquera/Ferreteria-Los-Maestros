@@ -9,19 +9,15 @@ import { useAuth } from '../../context/AuthContext';
 
 export function NavbarApp() {
   const [showCarrito, setShowCarrito] = useState(false);
-  const { carrito, eliminarDelCarrito, vaciarCarrito } = useCarrito();
-  const { usuario, logout } = useAuth();
+  const [imgError, setImgError] = useState(false);
+  const { carrito } = useCarrito();
+  const { usuario, logout, esVendedor } = useAuth();
   const navigate = useNavigate();
 
   const cantidadTotal = carrito.reduce((acc, item) => acc + (item.cantidad || 1), 0);
-  const usuarioActivo = usuario || JSON.parse(localStorage.getItem('usuarioActivo'));
 
   const handleLogout = () => {
-    if (logout) {
-      logout();
-    } else {
-      localStorage.removeItem('usuarioActivo');
-    }
+    logout();
     navigate('/login');
   };
 
@@ -37,14 +33,18 @@ export function NavbarApp() {
         <Container>
           {/* Logo e Identidad Visual */}
           <Navbar.Brand as={Link} to="/" className="fw-bold d-flex align-items-center gap-2 me-4">
-            <img
-              src="/img/logo.jpg"
-              alt="Ferretería Los Maestros"
-              className="rounded-circle object-fit-cover navbar-logo-img"
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
+            {!imgError ? (
+              <img
+                src="/img/logo.jpg"
+                alt="Ferretería Los Maestros"
+                width="40"
+                height="40"
+                className="rounded-circle object-fit-cover"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <span className="fs-4">🛠️</span>
+            )}
             <span className="fs-5 text-white">Ferretería Los Maestros</span>
           </Navbar.Brand>
 
@@ -74,16 +74,16 @@ export function NavbarApp() {
                 </Badge>
               </Button>
 
-              {usuarioActivo ? (
+              {usuario ? (
                 <div className="d-flex align-items-center gap-2 ms-2">
                   <div className="text-white small d-none d-md-block text-end me-1">
-                    <span className="fw-bold d-block">{usuarioActivo.nombre || usuarioActivo.correo}</span>
-                    <Badge bg={getBadgeColor(usuarioActivo.rol)} className="text-capitalize">
-                      {usuarioActivo.rol || 'cliente'}
+                    <span className="fw-bold d-block">{usuario.nombre || usuario.correo}</span>
+                    <Badge bg={getBadgeColor(usuario.rol)} className="text-capitalize">
+                      {usuario.rol || 'cliente'}
                     </Badge>
                   </div>
 
-                  {(usuarioActivo.rol === 'admin' || usuarioActivo.rol === 'vendedor') && (
+                  {esVendedor && (
                     <Button as={Link} to="/admin" variant="outline-warning" size="sm" className="fw-bold">
                       ⚙️ Admin
                     </Button>
@@ -108,13 +108,7 @@ export function NavbarApp() {
         </Container>
       </Navbar>
 
-      <CarritoModal
-        show={showCarrito}
-        handleClose={() => setShowCarrito(false)}
-        items={carrito}
-        onRemoveItem={eliminarDelCarrito}
-        onVaciarCarrito={vaciarCarrito}
-      />
+      <CarritoModal show={showCarrito} handleClose={() => setShowCarrito(false)} />
     </>
   );
 }

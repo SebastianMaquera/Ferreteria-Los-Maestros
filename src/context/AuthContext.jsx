@@ -1,51 +1,48 @@
 // Desarrollado por: Camilo Alarcón (src/context/AuthContext.jsx)
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import {
+    obtenerUsuarioActivo,
+    guardarUsuarioActivo,
+    borrarUsuarioActivo
+} from '../services/authService';
+import { autenticarUsuario } from '../services/userService';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [usuario, setUsuario] = useState(() => {
-        try {
-            const guardado = localStorage.getItem('usuarioActivo');
-            return guardado ? JSON.parse(guardado) : null;
-        } catch (error) {
-            return null;
-        }
-    });
+    const [usuario, setUsuario] = useState(obtenerUsuarioActivo);
 
     useEffect(() => {
         if (usuario) {
-            localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
+            guardarUsuarioActivo(usuario);
         } else {
-            localStorage.removeItem('usuarioActivo');
+            borrarUsuarioActivo();
         }
     }, [usuario]);
 
-    const login = (datosUsuario) => {
-        // Respeta el rol original asignado (admin, vendedor o cliente)
-        const usuarioConRol = {
-            ...datosUsuario,
-            rol: datosUsuario.rol || (datosUsuario.correo?.includes('admin') ? 'admin' : 'cliente')
-        };
-        setUsuario(usuarioConRol);
-        return usuarioConRol;
+    // Valida las credenciales con el servicio y, si son correctas, abre la sesión.
+    // Devuelve { exito, mensaje?, usuario? } para que la interfaz muestre el resultado.
+    const iniciarSesion = (correo, clave) => {
+        const resultado = autenticarUsuario(correo, clave);
+        if (resultado.exito) {
+            setUsuario(resultado.usuario);
+        }
+        return resultado;
     };
 
     const logout = () => {
         setUsuario(null);
-        localStorage.removeItem('usuarioActivo');
     };
 
     return (
         <AuthContext.Provider
             value={{
                 usuario,
-                login,
+                iniciarSesion,
                 logout,
                 esAdmin: usuario?.rol === 'admin',
-                esVendedor: usuario?.rol === 'vendedor' || usuario?.rol === 'admin',
-                estaAutenticado: !!usuario
+                esVendedor: usuario?.rol === 'vendedor' || usuario?.rol === 'admin'
             }}
         >
             {children}
@@ -60,5 +57,3 @@ export function useAuth() {
     }
     return context;
 }
-
-export default AuthContext;

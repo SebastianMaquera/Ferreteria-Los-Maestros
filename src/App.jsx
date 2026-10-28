@@ -1,11 +1,11 @@
 // Desarrollado por: Camilo Alarcón (src/App.jsx)
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { CarritoProvider } from './context/CarritoContext';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { NavbarApp } from './components/organisms/NavbarApp';
-import { FooterApp } from './components/organisms/FooterApp';
+import { CarritoProvider } from './context/CarritoContext';
+import { ProductosProvider } from './context/ProductosContext';
+import { MainLayout } from './components/templates/MainLayout';
 import { ProtectedRoute } from './components/organisms/ProtectedRoute';
 
 import Home from './pages/Home';
@@ -20,35 +20,24 @@ import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminProductosPage from './pages/AdminProductosPage';
 import AdminUsuariosPage from './pages/AdminUsuariosPage';
 
-export function App() {
+function App() {
   return (
     <AuthProvider>
       <CarritoProvider>
-        <Router>
-          <div className="d-flex flex-column min-vh-100">
+        <ProductosProvider>
+          <Router>
             <Routes>
-              {/* Rutas Públicas (Con Navbar y Footer) */}
-              <Route
-                path="/*"
-                element={
-                  <>
-                    <NavbarApp />
-                    <main className="flex-grow-1">
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/catalogo" element={<CatalogoPage />} />
-                        <Route path="/producto/:id" element={<DetalleProductoPage />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/registro" element={<RegistroPage />} />
-                        <Route path="/contacto" element={<ContactoPage />} />
-                        <Route path="/nosotros" element={<NosotrosPage />} />
-                        <Route path="/blogs" element={<BlogsPage />} />
-                      </Routes>
-                    </main>
-                    <FooterApp />
-                  </>
-                }
-              />
+              {/* Rutas Públicas: comparten la plantilla MainLayout (Navbar + Footer) */}
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/catalogo" element={<CatalogoPage />} />
+                <Route path="/producto/:id" element={<DetalleProductoPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/registro" element={<RegistroPage />} />
+                <Route path="/contacto" element={<ContactoPage />} />
+                <Route path="/nosotros" element={<NosotrosPage />} />
+                <Route path="/blogs" element={<BlogsPage />} />
+              </Route>
 
               {/* Rutas Privadas del Panel Administrador */}
               <Route
@@ -75,9 +64,12 @@ export function App() {
                   </ProtectedRoute>
                 }
               />
+
+              {/* Cualquier otra dirección vuelve al inicio */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-          </div>
-        </Router>
+          </Router>
+        </ProductosProvider>
       </CarritoProvider>
     </AuthProvider>
   );

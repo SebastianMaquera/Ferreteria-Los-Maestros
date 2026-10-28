@@ -1,11 +1,13 @@
 // Desarrollado por: Camilo Alarcón (src/pages/RegistroPage.jsx)
 
 import React, { useState } from 'react';
-import { Container, Card, Form, Button, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Card, Form, Row, Col, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
+import { FormFieldGroup } from '../components/molecules/FormFieldGroup';
+import { ButtonSubmit } from '../components/atoms/ButtonSubmit';
 import { REGIONES_Y_COMUNAS } from '../data/regiones';
 import { registrarUsuario } from '../services/userService';
-import { validarRun, validarCorreoDuoc } from '../utils/validaciones';
+import { validarRun, validarCorreoDuoc, validarNombre, validarClave } from '../utils/validaciones';
 
 export function RegistroPage() {
     const navigate = useNavigate();
@@ -48,53 +50,79 @@ export function RegistroPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
+        setExito(false);
 
-        // 1. Validación de campos vacíos
-        if (
-            !formData.run.trim() ||
-            !formData.nombre.trim() ||
-            !formData.apellidos.trim() ||
-            !formData.correo.trim() ||
-            !formData.password ||
-            !formData.confirmPassword ||
-            !formData.region ||
-            !formData.comuna
-        ) {
-            setError('Por favor, completa todos los campos requeridos.');
+        // 1. Validar RUN
+        if (!formData.run.trim()) {
+            setError('Debe ingresar su RUN.');
             return;
         }
-
-        // 2. Validaciones técnicas
         if (!validarRun(formData.run)) {
-            setError('RUN inválido. Debe tener entre 7 y 9 caracteres sin puntos ni guion (ej: 19011022K).');
+            setError('RUN inválido. Debe tener entre 8 y 9 caracteres sin puntos ni guión (ej: 19011022K).');
             return;
         }
 
+        // 2. Validar Nombre (solo letras, sin números)
+        if (!formData.nombre.trim()) {
+            setError('Debe ingresar su nombre.');
+            return;
+        }
+        if (!validarNombre(formData.nombre)) {
+            setError('El nombre solo debe contener letras (mínimo 3 caracteres) y no puede incluir números.');
+            return;
+        }
+
+        // 3. Validar Apellidos (solo letras, sin números)
+        if (!formData.apellidos.trim()) {
+            setError('Debe ingresar sus apellidos.');
+            return;
+        }
+        if (!validarNombre(formData.apellidos)) {
+            setError('Los apellidos solo deben contener letras (mínimo 3 caracteres) y no pueden incluir números.');
+            return;
+        }
+
+        // 4. Validar Correo
+        if (!formData.correo.trim()) {
+            setError('Debe ingresar su correo electrónico.');
+            return;
+        }
         if (!validarCorreoDuoc(formData.correo)) {
             setError('Solo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com.');
             return;
         }
 
-        if (formData.password.length < 4 || formData.password.length > 10) {
-            setError('La contraseña debe tener entre 4 y 10 caracteres.');
+        // 5. Validar Contraseña y Confirmación
+        const errorClave = validarClave(formData.password);
+        if (errorClave) {
+            setError(errorClave);
             return;
         }
-
+        if (!formData.confirmPassword) {
+            setError('Debe confirmar su contraseña.');
+            return;
+        }
         if (formData.password !== formData.confirmPassword) {
-            setError('Las contraseñas no coinciden.');
+            setError('Las contraseñas ingresadas no coinciden.');
             return;
         }
 
-        // 3. Registro mediante el servicio centralizado (userService.js)
+        // 6. Validar Ubicación
+        if (!formData.region || !formData.comuna) {
+            setError('Debe seleccionar su región y comuna.');
+            return;
+        }
+
+        // 7. Registro mediante el servicio centralizado (userService.js).
+        // El rol lo asigna el servicio: todo registro público es "cliente".
         const res = registrarUsuario({
-            run: formData.run.trim(),
+            run: formData.run.trim().toUpperCase(),
             nombre: `${formData.nombre.trim()} ${formData.apellidos.trim()}`,
             correo: formData.correo.trim().toLowerCase(),
             password: formData.password,
             region: formData.region,
             comuna: formData.comuna,
-            direccion: formData.direccion,
-            rol: formData.correo.includes('admin') ? 'admin' : 'cliente'
+            direccion: formData.direccion.trim()
         });
 
         if (res.exito) {
@@ -117,7 +145,7 @@ export function RegistroPage() {
                                 <h4 className="fw-bold text-warning mb-0">📝 Registro de Usuario</h4>
                             </Card.Header>
                             <Card.Body className="p-4 bg-white">
-                                {error && <Alert variant="danger">{error}</Alert>}
+                                {error && <Alert variant="danger" className="fw-bold">{error}</Alert>}
                                 {exito && (
                                     <Alert variant="warning" className="fw-bold text-dark">
                                         ¡Registro exitoso! Redirigiendo al inicio de sesión...
@@ -126,87 +154,82 @@ export function RegistroPage() {
 
                                 {/* noValidate evita los avisos nativos del navegador */}
                                 <Form onSubmit={handleSubmit} noValidate>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold text-dark">RUN (sin puntos ni guion)</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="run"
-                                            placeholder="Ej: 19011022K"
-                                            value={formData.run}
-                                            onChange={handleChange}
-                                            className="border-secondary"
-                                        />
-                                    </Form.Group>
+                                    <FormFieldGroup
+                                        controlId="registro-run"
+                                        label="RUN (sin puntos ni guion)"
+                                        name="run"
+                                        placeholder="Ej: 19011022K"
+                                        value={formData.run}
+                                        onChange={handleChange}
+                                        maxLength={9}
+                                    />
 
                                     <Row>
                                         <Col md={6}>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label className="fw-bold text-dark">Nombre</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="nombre"
-                                                    value={formData.nombre}
-                                                    onChange={handleChange}
-                                                    className="border-secondary"
-                                                />
-                                            </Form.Group>
+                                            <FormFieldGroup
+                                                controlId="registro-nombre"
+                                                label="Nombre"
+                                                name="nombre"
+                                                placeholder="Tu nombre"
+                                                value={formData.nombre}
+                                                onChange={handleChange}
+                                                maxLength={50}
+                                            />
                                         </Col>
                                         <Col md={6}>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label className="fw-bold text-dark">Apellidos</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="apellidos"
-                                                    value={formData.apellidos}
-                                                    onChange={handleChange}
-                                                    className="border-secondary"
-                                                />
-                                            </Form.Group>
+                                            <FormFieldGroup
+                                                controlId="registro-apellidos"
+                                                label="Apellidos"
+                                                name="apellidos"
+                                                placeholder="Tus apellidos"
+                                                value={formData.apellidos}
+                                                onChange={handleChange}
+                                                maxLength={50}
+                                            />
                                         </Col>
                                     </Row>
 
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold text-dark">Correo Electrónico</Form.Label>
-                                        <Form.Control
-                                            type="email"
-                                            name="correo"
-                                            placeholder="ejemplo@duoc.cl"
-                                            value={formData.correo}
-                                            onChange={handleChange}
-                                            className="border-secondary"
-                                        />
-                                    </Form.Group>
+                                    <FormFieldGroup
+                                        controlId="registro-correo"
+                                        label="Correo Electrónico"
+                                        type="email"
+                                        name="correo"
+                                        placeholder="ejemplo@duoc.cl"
+                                        value={formData.correo}
+                                        onChange={handleChange}
+                                        maxLength={80}
+                                    />
 
                                     <Row>
                                         <Col md={6}>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label className="fw-bold text-dark">Contraseña</Form.Label>
-                                                <Form.Control
-                                                    type="password"
-                                                    name="password"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                    className="border-secondary"
-                                                />
-                                            </Form.Group>
+                                            <FormFieldGroup
+                                                controlId="registro-password"
+                                                label="Contraseña"
+                                                type="password"
+                                                name="password"
+                                                placeholder="4 a 10 caracteres"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                maxLength={10}
+                                            />
                                         </Col>
                                         <Col md={6}>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label className="fw-bold text-dark">Confirmar Contraseña</Form.Label>
-                                                <Form.Control
-                                                    type="password"
-                                                    name="confirmPassword"
-                                                    value={formData.confirmPassword}
-                                                    onChange={handleChange}
-                                                    className="border-secondary"
-                                                />
-                                            </Form.Group>
+                                            <FormFieldGroup
+                                                controlId="registro-confirmar"
+                                                label="Confirmar Contraseña"
+                                                type="password"
+                                                name="confirmPassword"
+                                                placeholder="Repite la contraseña"
+                                                value={formData.confirmPassword}
+                                                onChange={handleChange}
+                                                maxLength={10}
+                                            />
                                         </Col>
                                     </Row>
 
                                     <Row>
                                         <Col md={6}>
-                                            <Form.Group className="mb-3">
+                                            <Form.Group className="mb-3" controlId="registro-region">
                                                 <Form.Label className="fw-bold text-dark">Región</Form.Label>
                                                 <Form.Select
                                                     name="region"
@@ -224,7 +247,7 @@ export function RegistroPage() {
                                             </Form.Group>
                                         </Col>
                                         <Col md={6}>
-                                            <Form.Group className="mb-3">
+                                            <Form.Group className="mb-3" controlId="registro-comuna">
                                                 <Form.Label className="fw-bold text-dark">Comuna</Form.Label>
                                                 <Form.Select
                                                     name="comuna"
@@ -244,10 +267,8 @@ export function RegistroPage() {
                                         </Col>
                                     </Row>
 
-                                    <div className="d-grid gap-2 mt-4">
-                                        <Button variant="warning" type="submit" size="lg" className="fw-bold text-dark">
-                                            Registrarse
-                                        </Button>
+                                    <div className="mt-4">
+                                        <ButtonSubmit text="Registrarse" variant="warning" size="lg" />
                                     </div>
                                 </Form>
 

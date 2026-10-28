@@ -1,19 +1,23 @@
 // Desarrollado por: Camilo Alarcón (src/context/CarritoContext.jsx)
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { obtenerCarrito, guardarCarrito } from '../services/carritoService';
 
 const CarritoContext = createContext();
 
-export const useCarrito = () => useContext(CarritoContext);
+export const useCarrito = () => {
+    const context = useContext(CarritoContext);
+    if (!context) {
+        throw new Error('useCarrito debe usarse dentro de un CarritoProvider');
+    }
+    return context;
+};
 
 export function CarritoProvider({ children }) {
-    const [carrito, setCarrito] = useState(() => {
-        const guardado = localStorage.getItem('carrito');
-        return guardado ? JSON.parse(guardado) : [];
-    });
+    const [carrito, setCarrito] = useState(obtenerCarrito);
 
     useEffect(() => {
-        localStorage.setItem('carrito', JSON.stringify(carrito));
+        guardarCarrito(carrito);
     }, [carrito]);
 
     const agregarAlCarrito = (producto) => {

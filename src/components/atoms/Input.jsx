@@ -3,16 +3,12 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 
-export function Input({ type = 'text', placeholder, value, onChange, required = false }) {
-  return (
-    <Form.Control
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      required={required}
-    />
-  );
+// Átomo: campo de formulario. Acepta cualquier prop de Form.Control
+// (name, placeholder, value, onChange, maxLength, as, rows, ...).
+export function Input({ type = 'text', className = '', ...props }) {
+  // Un textarea (as="textarea") no usa el atributo type
+  const tipo = props.as ? undefined : type;
+  return <Form.Control type={tipo} className={`border-secondary ${className}`.trim()} {...props} />;
 }
 
 export default Input;

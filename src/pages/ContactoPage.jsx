@@ -1,8 +1,10 @@
 // Desarrollado por: Sebastián Maquera (src/pages/ContactoPage.jsx)
 
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import { validarCorreoDuoc } from '../utils/validaciones';
+import { Container, Row, Col, Card, Form, Alert } from 'react-bootstrap';
+import { FormFieldGroup } from '../components/molecules/FormFieldGroup';
+import { ButtonSubmit } from '../components/atoms/ButtonSubmit';
+import { validarCorreoDuoc, validarNombre } from '../utils/validaciones';
 
 export function ContactoPage() {
     const [formData, setFormData] = useState({
@@ -29,8 +31,9 @@ export function ContactoPage() {
             return;
         }
 
-        if (formData.nombre.trim().length > 100) {
-            setError('El nombre no debe superar los 100 caracteres.');
+        // Validación de nombre sin números
+        if (!validarNombre(formData.nombre)) {
+            setError('El nombre solo debe contener letras (mínimo 3 caracteres) y no puede incluir números.');
             return;
         }
 
@@ -71,50 +74,39 @@ export function ContactoPage() {
                                 )}
 
                                 <Form onSubmit={handleSubmit} noValidate>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold text-dark">Nombre Completo</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="nombre"
-                                            placeholder="Tu nombre y apellido"
-                                            value={formData.nombre}
-                                            onChange={handleChange}
-                                            className="border-secondary"
-                                        />
-                                    </Form.Group>
+                                    <FormFieldGroup
+                                        controlId="contacto-nombre"
+                                        label="Nombre Completo"
+                                        name="nombre"
+                                        placeholder="Tu nombre y apellido"
+                                        value={formData.nombre}
+                                        onChange={handleChange}
+                                    />
 
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold text-dark">Correo Electrónico</Form.Label>
-                                        <Form.Control
-                                            type="email"
-                                            name="correo"
-                                            placeholder="ejemplo@duoc.cl"
-                                            value={formData.correo}
-                                            onChange={handleChange}
-                                            className="border-secondary"
-                                        />
-                                    </Form.Group>
+                                    <FormFieldGroup
+                                        controlId="contacto-correo"
+                                        label="Correo Electrónico"
+                                        type="email"
+                                        name="correo"
+                                        placeholder="ejemplo@duoc.cl"
+                                        value={formData.correo}
+                                        onChange={handleChange}
+                                    />
 
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold text-dark">Comentario o Mensaje</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={4}
-                                            name="mensaje"
-                                            placeholder="Escribe tu consulta aquí..."
-                                            value={formData.mensaje}
-                                            onChange={handleChange}
-                                            className="border-secondary"
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Máximo 500 caracteres. ({formData.mensaje.length}/500)
-                                        </Form.Text>
-                                    </Form.Group>
+                                    <FormFieldGroup
+                                        controlId="contacto-mensaje"
+                                        label="Comentario o Mensaje"
+                                        as="textarea"
+                                        rows={4}
+                                        name="mensaje"
+                                        placeholder="Escribe tu consulta aquí..."
+                                        value={formData.mensaje}
+                                        onChange={handleChange}
+                                        helpText={`Máximo 500 caracteres. (${formData.mensaje.length}/500)`}
+                                    />
 
-                                    <div className="d-grid gap-2 mt-4">
-                                        <Button variant="warning" type="submit" size="lg" className="fw-bold text-dark">
-                                            Enviar Mensaje
-                                        </Button>
+                                    <div className="mt-4">
+                                        <ButtonSubmit text="Enviar Mensaje" variant="warning" size="lg" />
                                     </div>
                                 </Form>
                             </Card.Body>
